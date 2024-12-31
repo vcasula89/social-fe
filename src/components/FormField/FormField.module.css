@@ -1,0 +1,15 @@
+.field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin:1rem 0;
+}
+
+.field label {
+    margin-bottom: 0.5rem;
+}
+
+
+.field .error {
+    color: darksalmon;
+}
