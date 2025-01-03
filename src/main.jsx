@@ -13,6 +13,7 @@ import {PersistGate} from "redux-persist/integration/react";
 import AuthLayout from "./components/AuthLayout/AuthLayout.jsx";
 import MainLayout from "./components/MainLayout/MainLayout.jsx";
 import ErrorPage from "./components/ErrorPage/ErrorPage.jsx";
+import RecoveryPasswordPage from "./components/RecoveryPasswordPage/RecoveryPasswordPage.jsx";
 
 
 const router = createBrowserRouter([
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
                     {
                         path: 'registration',
                         element: <RegistrationForm/>
+                    },
+                    {
+                        path: 'recovery-password',
+                        element: <RecoveryPasswordPage/>
                     }
                 ]
             }
