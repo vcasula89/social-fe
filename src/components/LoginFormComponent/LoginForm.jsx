@@ -77,7 +77,10 @@ const LoginForm = () => {
             <div className={styles.registrationLink}>
                 <Link to={'/registration'}>Registrati</Link>
             </div>
-            <button>Accedi</button>
+                <div className={styles.resetPasswordLink}>
+                    <Link to={'/recovery-password'}>Ho dimenticato la password</Link>
+                </div>
+                <button>Accedi</button>
         </form>
     </div>
 }

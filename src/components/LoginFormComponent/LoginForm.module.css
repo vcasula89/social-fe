@@ -3,3 +3,7 @@
     justify-content: flex-end;
 }
 
+.resetPasswordLink {
+    display:flex;
+    justify-content: flex-end;
+}
