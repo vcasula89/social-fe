@@ -1,11 +1,11 @@
 import { useState} from "react";
 import styles from "./RegistrationForm.module.css";
-import Logo from "../../assets/logo-tnv-academy.png"
+import Logo from "../../../assets/logo-tnv-academy.png"
 import {Link, useNavigate} from "react-router";
-import useInput from "../../hooks/useInput.js";
-import {isEmail, hasMinLength, isNotEmpty, isEqualsToOtherValue} from "../../util/validation.js";
-import Input from "../Input/Input.jsx";
-import {register} from "../../services/registration.services.js";
+import useInput from "../../Input/Input.jsx";
+import {isEmail, hasMinLength, isNotEmpty, isEqualsToOtherValue} from "../../../util/validation.js";
+import Input from "../../Input/Input.jsx";
+import {register} from "../../../services/registration.services.js";
 import {FaArrowLeftLong} from "react-icons/fa6";
 
 const RegistrationForm = () => {
@@ -101,7 +101,7 @@ const RegistrationForm = () => {
             <button>Registrati</button>
         </form>
         <div className={styles.backToLogin}>
-            <Link to={'/'}><FaArrowLeftLong /> Torna al Login</Link>
+            <Link to={'/login'}><FaArrowLeftLong /> Torna al Login</Link>
         </div>
     </div>
 }

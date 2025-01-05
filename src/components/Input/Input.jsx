@@ -1,5 +1,5 @@
 import styles from "./Input.module.css";
-import FormField from "../FormField/FormField.jsx";
+import FormField from "../Auth/FormField/FormField.jsx";
 
 const Input = ({label, id, error, ...props}) => {
     return (

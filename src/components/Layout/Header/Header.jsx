@@ -1,10 +1,10 @@
 import styles from './Header.module.css';
 import {useContext, useEffect, useState} from "react";
-import {ThemeContext} from "../../contexts/ThemeProvider.jsx";
+import {ThemeContext} from "../../../contexts/ThemeProvider.jsx";
 import {useSelector} from "react-redux";
-import {UserSelector} from "../../reducers/user.slice.js";
+import {UserSelector} from "../../../reducers/user.slice.js";
 import {FaRegSun, FaMoon, FaArrowRightFromBracket} from "react-icons/fa6";
-import useLogout from "../../hooks/useLogout.jsx";
+import useLogout from "../../../hooks/useLogout.jsx";
 
 const Header = () => {
     const {theme, setTheme} = useContext(ThemeContext);

@@ -1,5 +1,5 @@
 import styles from "./MainLayout.module.css"
-import Header from "../Header/Header.jsx";
+import Header from "../../Layout/Header/Header";
 import {Outlet} from "react-router-dom";
 
 const MainLayout = () => {
