@@ -14,6 +14,8 @@ import AuthLayout from "./components/AuthLayout/AuthLayout.jsx";
 import MainLayout from "./components/MainLayout/MainLayout.jsx";
 import HomePage from "./components/HomePage/HomePage.jsx";
 import ErrorPage from "./components/ErrorPage/ErrorPage.jsx";
+import RecoveryPasswordPage from "./components/RecoveryPasswordPage/RecoveryPasswordPage.jsx";
+import NewPasswordForm from "./components/NewPasswordForm/NewPasswordForm.jsx";
 
 
 
@@ -33,7 +35,15 @@ const router = createBrowserRouter([
                     {
                         path: 'registration',
                         element: <RegistrationForm/>
-                    }
+                    },
+                    {
+                        path: 'recovery-password',
+                        element: <RecoveryPasswordPage/>
+                    },
+                    {
+                        path: 'form-recovery-password/:token',
+                        element: <NewPasswordForm/>
+                    },
                 ]
             },
             {

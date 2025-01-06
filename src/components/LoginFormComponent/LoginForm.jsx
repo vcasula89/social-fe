@@ -42,12 +42,12 @@ const LoginForm = () => {
             return;
         }
 
-        const payload = {
+        const bodyForm = {
             email: emailValue,
             password: passwordValue,
         }
 
-        const res = await login(payload)
+        const res = await login(bodyForm)
         if (res) {
             dispatch(setUser(res));
             navigate('/');
@@ -77,7 +77,10 @@ const LoginForm = () => {
             <div className={styles.registrationLink}>
                 <Link to={'/registration'}>Registrati</Link>
             </div>
-            <button>Accedi</button>
+                <div className={styles.resetPasswordLink}>
+                    <Link to={'/recovery-password'}>Ho dimenticato la password</Link>
+                </div>
+                <button>Accedi</button>
         </form>
     </div>
 }
