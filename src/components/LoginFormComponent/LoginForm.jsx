@@ -42,12 +42,12 @@ const LoginForm = () => {
             return;
         }
 
-        const payload = {
+        const bodyForm = {
             email: emailValue,
             password: passwordValue,
         }
 
-        const res = await login(payload)
+        const res = await login(bodyForm)
         if (res) {
             dispatch(setUser(res));
             navigate('/');
