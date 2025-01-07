@@ -1,7 +1,7 @@
 import Logo from "../../assets/logo-tnv-academy.png";
 import Input from "../Input/Input.jsx";
-import {Link, useParams} from "react-router";
-import {hasMinLength, isAlphaNum, isEmail, isEqualsToOtherValue} from "../../util/validation.js";
+import {useParams} from "react-router";
+import {hasMinLength, isAlphaNum,isEqualsToOtherValue} from "../../util/validation.js";
 import {useState} from "react";
 import useInput from "../../hooks/useInput.js";
 
@@ -30,7 +30,6 @@ const NewPasswordForm = () => {
        .catch(error => {
            setShowForm(false);
        })
-
 
 
     const submitHandler = async (event) => {

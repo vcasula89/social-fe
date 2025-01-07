@@ -1,10 +1,8 @@
 import Logo from "../../assets/logo-tnv-academy.png";
 import Input from "../Input/Input.jsx";
-import styles from "../LoginFormComponent/LoginForm.module.css";
-import {Link, useNavigate} from "react-router";
-import {hasMinLength, isEmail} from "../../util/validation.js";
+import {useNavigate} from "react-router";
+import {isEmail} from "../../util/validation.js";
 import {recoveryPassword} from "../../services/recoveryPassword.service.js";
-import {setUser} from "../../reducers/user.slice.js";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import useInput from "../../hooks/useInput.js";
