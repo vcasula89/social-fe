@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import styles from "./CreatePostComponent.module.css";
+import {useSelector} from "react-redux";
+import {UserSelector} from "../../reducers/user.slice.js";
 
 const PostComponent = () => {
     const [title, setTitle] = useState(''); 
     const [body, setBody] = useState(''); 
     const [image, setImage] = useState(null); 
     const [error, setError] = useState(''); 
+    const [posts, setPosts] = useState([]); 
+    const user = useSelector(UserSelector);
     
     const handleTitleChange = (e) => setTitle(e.target.value); 
     const handleBodyChange = (e) => setBody(e.target.value); 
@@ -27,17 +31,17 @@ const PostComponent = () => {
             body, 
             image: image ? URL.createObjectURL(image) : null,
             timestamp: new Date().toISOString(), 
-            author: 'User', //Sostituire con le info reali dell'utente
-            }; 
-            
-            addPost(post); 
-            setTitle(''); 
-            setBody(''); 
-            setImage(null); 
-            setError('');
-        };
+            author: user.displayName,
+        }; 
+        
+        setPosts([post, ...posts]); console.log(post);
+        setTitle(''); 
+        setBody(''); 
+        setImage(null); 
+        setError('');
+    };
 
-        return ( 
+    return ( 
         <> 
         <form onSubmit={handleSubmit} className={styles.postForm}>
              <div className={styles.formGroup}> 
@@ -49,7 +53,7 @@ const PostComponent = () => {
             <div className={styles.formGroup}> 
                     <label> 
                             Body: 
-                            <textarea value={body} onChange={handleBodyChange} maxLength="2000"></textarea> 
+                            <textarea value={body} onChange={handleBodyChange} maxLength="200"></textarea> 
                             </label> 
                         </div> 
                         <div className={styles.formGroup}> 
