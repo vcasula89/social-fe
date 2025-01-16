@@ -1,20 +1,64 @@
 .header {
-    display:flex;
+    display: flex;
     justify-content: space-between;
-    height: 60px;
-    padding:1rem 2rem;
+    align-items: center;
+    padding: 1rem 2rem;
     background-color: var(--secondary-background);
-    box-shadow: 1px 1px 8px -3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo a {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--primary-text);
 }
 
 .button__container {
-    display:flex;
+    display: flex;
     align-items: center;
-    gap:10px;
+    gap: 10px;
 }
 
 .navLinks {
     list-style-type: none;
     display: flex;
     gap: 15px;
+}
+
+.loginButton {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    background-color: var(--primary-color);
+    color: var(--text-on-primary);
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.loginButton:hover {
+    background-color: var(--primary-hover-color);
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+button {
+    background: none;
+    border: none;
+    color: var(--icon-color);
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+button:hover {
+    color: var(--icon-hover);
 }
