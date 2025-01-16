@@ -12,21 +12,37 @@ const Header = () => {
     const user = useSelector(UserSelector);
     const {logout} = useLogout();
 
+
     const switchTheme = () => {
         setTheme((prevTheme) => prevTheme === 'light' ? 'dark' : 'light');
-    }
+    };
 
-    return <header className={styles.header}>
-        <div className={styles.logo}>
-            <Link to="/">SocialApp</Link>
-        </div>
+    return (
+        <header className={styles.header}>
+            <div className={styles.logo}>
+                <Link to="/">TheNet</Link>
+            </div>
 
-        <div className={styles.button__container}>
-            <img alt="Avatar" />
-            <div>{user.displayName || 'Non sei loggato'}</div>
-            <button onClick={logout}>️<FaArrowRightFromBracket/></button>
-        </div>
-    </header>
-}
+            <div className={styles.button__container}>
+                {user && user.displayName ? (
+                    <>
+                        <img src={user.avatarUrl || '/default-avatar.png'} alt="Avatar" className={styles.avatar} />
+                        <div>{user.displayName}</div>
+                        <button onClick={logout} aria-label="Logout">
+                            <FaArrowRightFromBracket />
+                        </button>
+                    </>
+                ) : (
+                    <Link to="/login" className={styles.loginButton}>
+                        Login
+                    </Link>
+                )}
+                <button onClick={switchTheme} aria-label="Cambia tema">
+                    {theme === 'light' ? <FaMoon /> : <FaRegSun />}
+                </button>
+            </div>
+        </header>
+    );
+};
 
 export default Header;

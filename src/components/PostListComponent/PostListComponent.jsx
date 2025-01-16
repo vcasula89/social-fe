@@ -1,14 +1,13 @@
+import React from 'react';
 import styles from "./PostListComponent.module.css";
-import PostComponent from "../PostComponent/PostComponent.jsx";
+import VisualizationPost from "../VisualizationPostComponent/VisualizationPost.jsx";
 
 const PostListComponent = () => {
-    return <>
+    return (
         <div className={styles.postList}>
-            <PostComponent/>
-            <PostComponent/>
-            <PostComponent/>
-            <PostComponent/>
+            <VisualizationPost />
         </div>
-    </>
-}
+    );
+};
+
 export default PostListComponent;
