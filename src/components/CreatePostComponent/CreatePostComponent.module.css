@@ -1,4 +1,80 @@
-.postBox{
-    border: 1px solid green;
+.postForm {
     width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.76);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.formGroup {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    resize: vertical;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.formGroup label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #000;
+    display: block; /* Assicura che il label occupi l'intera larghezza sopra l'input */
+    text-align: left;
+}
+
+.formGroup input[type="text"],
+.formGroup textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-top: 5px; /* Spazio aggiuntivo tra il label e l'input */
+}
+
+.formGroup textarea {
+    resize: vertical;
+    height: 100px; /* Altezza predefinita */
+}
+
+.formGroup input[type="file"] {
+    display: block;
+    margin-top: 10px;
+}
+
+.buttonGroup {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+
+.submitButton,
+.uploadButton {
+    padding: 10px 20px;
+    background-color: #142cff;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.submitButton:hover,
+.uploadButton:hover {
+    background-color: #145dbf;
+}
+
+.errorMessage {
+    color: #ff1f1f;
+    margin-top: 10px;
 }
