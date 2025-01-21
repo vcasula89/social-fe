@@ -8,9 +8,12 @@ export const login = async (loginParams) => {
         const data = await response.json();
 
         if (response.ok) {
-            return data;
+            return {
+                ...data,
+                avatarUrl: data.avatarUrl
+            };
         } else {
-            throw Error(response.statusText);
+            throw new Error(response.statusText);
         }
     } catch (error) {
         console.log(error, 'login Error')

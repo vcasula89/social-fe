@@ -4,6 +4,7 @@ const initialState = {
     user: {
         email: null,
         displayName: null,
+        avatarUrl: null,
         accessToken: null,
         refreshToken: null,
     }

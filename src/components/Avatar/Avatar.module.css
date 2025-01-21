@@ -1,0 +1,20 @@
+.avatarContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+.errorMessage {
+    color: red;
+    font-size: 0.9rem;
+    text-align: center;
+}

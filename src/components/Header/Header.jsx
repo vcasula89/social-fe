@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 import {UserSelector} from "../../reducers/user.slice.js";
 import {FaRegSun, FaMoon, FaArrowRightFromBracket} from "react-icons/fa6";
 import useLogout from "../../hooks/useLogout.jsx";
+import Avatar from '../Avatar/Avatar.jsx';
 
 const Header = () => {
     const {theme, setTheme} = useContext(ThemeContext);
@@ -25,17 +26,17 @@ const Header = () => {
 
             <div className={styles.button__container}>
                 {user && user.displayName ? (
-                    <>
-                        <img src={user.avatarUrl || '/default-avatar.png'} alt="Avatar" className={styles.avatar} />
-                        <div>{user.displayName}</div>
+                <>
+                    <Avatar userId={user.id} initialAvatar={user.avatarUrl} />
+                    <div>{user.displayName}</div>
                         <button onClick={logout} aria-label="Logout">
                             <FaArrowRightFromBracket />
                         </button>
                     </>
                 ) : (
-                    <Link to="/login" className={styles.loginButton}>
+                <Link to="/login" className={styles.loginButton}>
                         Login
-                    </Link>
+                </Link>
                 )}
                 <button onClick={switchTheme} aria-label="Cambia tema">
                     {theme === 'light' ? <FaMoon /> : <FaRegSun />}
