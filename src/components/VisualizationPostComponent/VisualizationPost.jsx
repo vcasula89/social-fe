@@ -88,7 +88,7 @@ const VisualizationPost = () => {
                         <p>Comments: {post.comments.length}</p>
                     </div>
                     <button onClick={() => toggleAccordion(post.id)}>
-                        {openAccordion === post.id ? ' 😶‍🌫️ Hide Comments' : ' 👀 Show Comments'}
+                        {openAccordion === post.id ? 'Hide Comments' : 'Show Comments'}
                     </button>
                     {openAccordion === post.id && (
                         <div className={styles.accordion}>
@@ -102,8 +102,8 @@ const VisualizationPost = () => {
                     )}
                     {isLoggedIn && (
                         <>
-                            <button onClick={() => addLike(post.id)}> 👍🏻 Mi Piace</button>
-                            <button onClick={() => addComment(post.id)}> 💬 Commenta</button>
+                            <button onClick={() => addLike(post.id)}>Mi Piace</button>
+                            <button onClick={() => addComment(post.id)}>Commenta</button>
                         </>
                     )}
                 </div>
