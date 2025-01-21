@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styles from './Avatar.module.css';
 
 const Avatar = ({ userId, initialAvatar }) => {
-    const [avatar, setAvatar] = useState(initialAvatar || '/default-avatar.png');
+    const [avatar, setAvatar] = useState(initialAvatar || randomAvatar());
     const [error, setError] = useState(null);
 
     useEffect(() => {
