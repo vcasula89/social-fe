@@ -2,13 +2,12 @@
     width: 100%;
     max-width: 600px;
     margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #2d2d2d;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.76);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    color: #fff;
 }
 
 .formGroup {
@@ -16,15 +15,12 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    resize: vertical;
-    height: 100px;
-    margin-bottom: 10px;
 }
 
 .formGroup label {
     font-weight: bold;
     margin-bottom: 5px;
-    color: #000;
+    color: #7181ff;
     display: block; /* Assicura che il label occupi l'intera larghezza sopra l'input */
     text-align: left;
 }
@@ -32,17 +28,33 @@
 .formGroup input[type="text"],
 .formGroup textarea {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #3b3b3b;
+    color: #fff;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     font-size: 14px;
     box-sizing: border-box;
     margin-top: 5px; /* Spazio aggiuntivo tra il label e l'input */
+    outline: none;  /* Rimuove la selezione colorata */
+    resize: none;  /* Blocca il ridimensionamento */
+    transition: border-color 0.3s ease-in-out; /* Aggiungi un effetto di transizione per il bordo */
 }
 
-.formGroup textarea {
-    resize: vertical;
-    height: 100px; /* Altezza predefinita */
+/* Altezza per il textarea titolo */
+.formGroup textarea#title {
+    height: 30px; /* Altezza per il titolo */
+}
+
+/* Altezza per il textarea body */
+.formGroup textarea#body {
+    height: 200px; /* Altezza per la descrizione */
+}
+
+textarea:focus {
+    border-color: #0078d7;
+    box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
 }
 
 .formGroup input[type="file"] {
@@ -50,14 +62,57 @@
     margin-top: 10px;
 }
 
-.buttonGroup {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5px;
+.errorMessage {
+    color: #ff1f1f;
+    margin-top: 10px;
 }
 
-.submitButton,
-.uploadButton {
+/* Sezione del bottone e icona */
+.buttonContainer {
+    display: flex;
+    align-items: center;  /* Centra verticalmente icona e bottone */
+    justify-content: space-between; /* Posiziona uno a sinistra e uno a destra */
+    margin-top: 20px; /* Aumentato lo spazio sopra */
+}
+
+.iconUploadContainer {
+    display: flex;
+    align-items: center;
+}
+
+.iconLabel {
+    cursor: pointer;
+    display: inline-flex;  /* Modificato a inline-flex per allineamento migliore */
+    align-items: center;
+    justify-content: center;  /* Centra il contenuto orizzontalmente */
+    background-color: #142cff;  /* Colore di sfondo come submitButton */
+    padding: 10px 20px;  /* Stessi padding del submitButton */
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    margin-right: 20px;  /* Distanza tra l'icona e il bottone */
+    font-size: 14px;  /* Imposta la dimensione del testo */
+    color: white;  /* Colore del testo */
+}
+
+.uploadIcon {
+    width: 20px;  /* Piccola riduzione per allineare meglio l'icona con il bottone */
+    height: 20px;
+    object-fit: contain;
+    transition: transform 0.2s ease-in-out;
+    margin-right: 5px; /* Distanza tra icona e testo */
+}
+
+.iconLabel:hover {
+    background-color: rgb(0, 102, 255);
+    border-color: #0078d7;
+    box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
+}
+
+.iconLabel:hover .uploadIcon {
+    transform: scale(1.1);  /* Aggiungi l'effetto hover anche sull'icona */
+}
+
+.submitButton {
     padding: 10px 20px;
     background-color: #142cff;
     color: #fff;
@@ -67,14 +122,11 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
+    display: inline-block;
 }
 
-.submitButton:hover,
-.uploadButton:hover {
-    background-color: #145dbf;
-}
-
-.errorMessage {
-    color: #ff1f1f;
-    margin-top: 10px;
+.submitButton:hover {
+    background-color: rgb(0, 102, 255);
+    border-color: #0078d7;
+    box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from "./CreatePostComponent.module.css";
-import {useSelector} from "react-redux";
-import {UserSelector} from "../../reducers/user.slice.js";
+import { useSelector } from "react-redux";
+import { UserSelector } from "../../reducers/user.slice.js";
 
 const PostComponent = () => {
     const [title, setTitle] = useState('');
@@ -46,8 +46,8 @@ const PostComponent = () => {
             <form onSubmit={handleSubmit} className={styles.postForm}>
                 <div className={styles.formGroup}>
                     <label htmlFor="title"> Titolo
-                        <input id="title" type="text" value={title} onChange={handleTitleChange} maxLength="100"
-                               placeholder="Inserisci il titolo"/>
+                        <textarea id="title" value={title} onChange={handleTitleChange} maxLength="100"
+                                  placeholder="Inserisci il titolo"></textarea>
                     </label>
                 </div>
                 <div className={styles.formGroup}>
@@ -56,26 +56,25 @@ const PostComponent = () => {
                                   placeholder="Inserisci il testo"></textarea>
                     </label>
                 </div>
-                    <label htmlFor="fileInput"> Immagine (optional):
-                        <input
-                            type="file"
-                            accept="image/jpeg,image/png"
-                            onChange={handleImageChange}
-                            style={{display: 'none'}}
-                            id="fileInput"
-                        />
+                {error && <p className={styles.errorMessage}>{error}</p>} {/* Spostato il messaggio di errore */}
+                <div className={styles.buttonContainer}>
+                    <label htmlFor="fileInput" className={styles.iconLabel}>
+                        <img src="src/assets/add-photo.svg" alt="Upload" className={styles.uploadIcon}/>
+                        Carica immagine
                     </label>
-                    {error && <p className={styles.errorMessage}>{error}</p>}
-                    <div className={styles.buttonGroup}>
-                        <button
-                            type="button"
-                            onClick={() => document.getElementById('fileInput').click()}
-                                className={styles.uploadButton}> Carica Immagine </button>
-                        <button type="submit" className={styles.submitButton}>Create Post</button>
-                    </div>
+                    <input
+                        type="file"
+                        accept="image/jpeg,image/png"
+                        onChange={handleImageChange}
+                        style={{display: 'none'}}
+                        id="fileInput"
+                    />
+                    <button type="submit" className={styles.submitButton}>Create Post</button>
+                </div>
             </form>
+
         </>
-);
+    );
 };
 
 export default PostComponent;
