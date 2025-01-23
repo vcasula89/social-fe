@@ -47,7 +47,7 @@ const PostComponent = () => {
         };
 
         //se l'immagine è presente viene aggiunta all'oggeto payload
-        if(image !== null){
+        if (image !== null) {
             postObject.image = image;
         }
 
@@ -61,60 +61,62 @@ const PostComponent = () => {
                 //se non è andato a buon fine stampo un messaggio in console con l'errore
                 console.error('Errore nella creazione del post:', error);
             });
-
-        if (user && user.accessToken) {
-    return (
-        <>
-        <form onSubmit={handleSubmit} className={styles.postForm}>
-            <div className={`${styles.formGroup} ${styles.flexContainer}`}>
-                <label htmlFor="title" className={styles.flexItem}>
-                    Titolo
-                    <textarea
-                        id="title"
-                        className={styles.title}
-                        value={title}
-                        onChange={handleTitleChange}
-                        maxLength="100"
-                placeholder="Inserisci il titolo"
-            ></textarea>
-            </label>
-        </div>
-        <div className={`${styles.formGroup} ${styles.flexContainer}`}>
-            <label htmlFor="body" className={styles.flexItem}>
-                Descrizione
-                <textarea
-                    id="body"
-                    className={styles.body}
-                    value={body}
-                    onChange={handleBodyChange}
-                    maxLength="200"
-                placeholder="Inserisci il testo"
-            ></textarea>
-        </label>
-        </div>
-    {
-        error && <p className={styles.errorMessage}>{error}</p>
     }
-    <div className={`${styles.buttonContainer} ${styles.flexContainer}`}>
-        <label htmlFor="fileInput" className={`${styles.iconLabel} ${styles.flexItem}`}>
-            <img src="src/assets/add-photo.svg" alt="Upload" className={styles.uploadIcon}/>
-            Carica immagine
-        </label>
-        <input
-            type="file"
-            accept="image/jpeg,image/png"
-            onChange={handleImageChange}
-            style={{display: 'none'}}
-            id="fileInput"
-        />
-        <button type="submit" className={`${styles.submitButton} ${styles.flexItem}`}>Create Post</button>
-    </div>
-</form>
+        if (user && user.accessToken) {
+            return (
+                <>
+                    <form onSubmit={handleSubmit} className={styles.postForm}>
+                        <div className={`${styles.formGroup} ${styles.flexContainer}`}>
+                            <label htmlFor="title" className={styles.flexItem}>
+                                Titolo
+                                <textarea
+                                    id="title"
+                                    className={styles.title}
+                                    value={title}
+                                    onChange={handleTitleChange}
+                                    maxLength="100"
+                                    placeholder="Inserisci il titolo"
+                                ></textarea>
+                            </label>
+                        </div>
+                        <div className={`${styles.formGroup} ${styles.flexContainer}`}>
+                            <label htmlFor="body" className={styles.flexItem}>
+                                Descrizione
+                                <textarea
+                                    id="body"
+                                    className={styles.body}
+                                    value={body}
+                                    onChange={handleBodyChange}
+                                    maxLength="200"
+                                    placeholder="Inserisci il testo"
+                                ></textarea>
+                            </label>
+                        </div>
+                        {
+                            error && <p className={styles.errorMessage}>{error}</p>
+                        }
+                        <div className={`${styles.buttonContainer} ${styles.flexContainer}`}>
+                            <label htmlFor="fileInput" className={`${styles.iconLabel} ${styles.flexItem}`}>
+                                <img src="src/assets/add-photo.svg" alt="Upload" className={styles.uploadIcon}/>
+                                Carica immagine
+                            </label>
+                            <input
+                                type="file"
+                                accept="image/jpeg,image/png"
+                                onChange={handleImageChange}
+                                style={{display: 'none'}}
+                                id="fileInput"
+                            />
+                            <button type="submit" className={`${styles.submitButton} ${styles.flexItem}`}>Create Post
+                            </button>
+                        </div>
+                    </form>
 
-</>
+                </>
 
-    );
-}
-    };
+            );
+        }
+
+};
 
 export default PostComponent;
