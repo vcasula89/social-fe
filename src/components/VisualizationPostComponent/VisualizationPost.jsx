@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { config } from '../../../config';
-import './visualizationPost.module.css';
+import styles from './visualizationPost.module.css';
 
 const VisualizationPost = () => {
     const [posts, setPosts] = useState([]);
@@ -9,12 +9,22 @@ const VisualizationPost = () => {
     const [page, setPage] = useState(1);
     const [hasMore, setHasMore] = useState(true);
     const [openAccordion, setOpenAccordion] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // Stato per gestire l'autenticazione
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        // Simulazione di controllo autenticazione
+        const checkAuth = () => {
+            const userIsLoggedIn = true;
+            setIsLoggedIn(userIsLoggedIn);
+        };
+
+        checkAuth();
+    }, []);
 
     useEffect(() => {
         const fetchPosts = async (page) => {
             try {
-                const response = await fetch(`${config.api.BASE_URL}/api/posts?page=${page}`);
+                const response = await fetch(`${config.api.BASE_URL}/posts?page=${page}`);
                 if (!response.ok) {
                     throw new Error('Qualcosa è andato storto');
                 }
@@ -32,8 +42,6 @@ const VisualizationPost = () => {
     
         fetchPosts(page);
     }, [page]);
-
-   
 
     useEffect(() => {
         const handleScroll = () => {
@@ -70,21 +78,22 @@ const VisualizationPost = () => {
     return (
         <div>
             {posts.map(post => (
-                <div key={post.id} className="post">
+                <div key={post.id} className={styles.post}>
                     <h2>{post.title}</h2>
-                    {post.image && <img src={post.image} alt={post.title}/>}
+                    {post.image && <img src={post.image} alt={post.title} className={styles.image} />}
                     <p>{post.body}</p>
-                    <p>Author: {post.author}</p>
-                    <p>Date: {new Date(post.date).toLocaleDateString()}</p>
-                    <p>Likes: {post.likes}</p>
-                    <p>Comments: {post.comments.length}</p>
+                    <div className={styles.postDetails}>
+                        <p>Date: {new Date(post.date).toLocaleDateString()}</p>
+                        <p>Likes: {post.likes}</p>
+                        <p>Comments: {post.comments.length}</p>
+                    </div>
                     <button onClick={() => toggleAccordion(post.id)}>
-                        {openAccordion === post.id ? 'Hide Comments' : 'Show Comments'}
+                        {openAccordion === post.id ? ' 😶‍🌫️ Hide Comments' : ' 👀 Show Comments'}
                     </button>
                     {openAccordion === post.id && (
-                        <div className="accordion">
-                            {post.comments.map((comment, index) => (
-                                <div key={index} className="comment">
+                        <div className={styles.accordion}>
+                            {post.comments.map(comment => (
+                                <div key={comment.id} className={styles.comment}>
                                     <p>{comment.text}</p>
                                     <p>By: {comment.author}</p>
                                 </div>
@@ -93,8 +102,8 @@ const VisualizationPost = () => {
                     )}
                     {isLoggedIn && (
                         <>
-                            <button onClick={() => addLike(post.id)}>Mi Piace</button>
-                            <button onClick={() => addComment(post.id)}>Commenta</button>
+                            <button onClick={() => addLike(post.id)}> 👍🏻 Mi Piace</button>
+                            <button onClick={() => addComment(post.id)}> 💬 Commenta</button>
                         </>
                     )}
                 </div>
