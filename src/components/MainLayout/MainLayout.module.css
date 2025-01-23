@@ -1,9 +1,9 @@
 .main__container {
     max-width: 900px;
-    border: 1px solid red;
     margin: 0 auto;
     padding: 2rem;
     height:calc(100% - 60px);
     display: flex;
     flex-direction: column;
+    
 }

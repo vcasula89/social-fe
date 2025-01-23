@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import { config } from '../../../config';
 import styles from './visualizationPost.module.css';
+import { AiTwotoneLike } from "react-icons/ai";
+import { LiaComments } from "react-icons/lia";
+import { TfiCommentAlt } from "react-icons/tfi";
+import { RxEyeClosed } from "react-icons/rx";
 
 const VisualizationPost = () => {
     const [posts, setPosts] = useState([]);
@@ -87,9 +91,7 @@ const VisualizationPost = () => {
                         <p>Likes: {post.likes}</p>
                         <p>Comments: {post.comments.length}</p>
                     </div>
-                    <button onClick={() => toggleAccordion(post.id)}>
-                        {openAccordion === post.id ? 'Hide Comments' : 'Show Comments'}
-                    </button>
+        
                     {openAccordion === post.id && (
                         <div className={styles.accordion}>
                             {post.comments.map(comment => (
@@ -101,10 +103,17 @@ const VisualizationPost = () => {
                         </div>
                     )}
                     {isLoggedIn && (
-                        <>
-                            <button onClick={() => addLike(post.id)}>Mi Piace</button>
-                            <button onClick={() => addComment(post.id)}>Commenta</button>
-                        </>
+                        <div className={styles.buttonGroup}>
+                            <button className={styles.leftButton} onClick={() => addLike(post.id)}>
+                                <AiTwotoneLike /> 
+                            </button>
+                            <div className={styles.rightButtons}>
+                                <button onClick={() => addComment(post.id)}><TfiCommentAlt /></button>
+                                <button onClick={() => toggleAccordion(post.id)}>
+                                    {openAccordion === post.id ? <RxEyeClosed /> : <LiaComments />}
+                                </button>
+                            </div>
+                        </div>
                     )}
                 </div>
             ))}
