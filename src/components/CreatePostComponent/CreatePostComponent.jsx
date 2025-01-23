@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import styles from "./CreatePostComponent.module.css";
 import {useSelector} from "react-redux";
 import {UserSelector} from "../../reducers/user.slice.js";
