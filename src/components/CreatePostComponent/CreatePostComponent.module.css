@@ -48,12 +48,12 @@ input[type="text"] {
 }
 
 /* Altezza specifica per textarea */
-textarea#title {
-    height: 30px; /* Altezza per il titolo */
+textarea.title {
+    height: 60px; /* Altezza per il titolo */
 }
 
-textarea#body {
-    height: 200px; /* Altezza per la descrizione */
+textarea.body {
+    height: 85px; /* Altezza per la descrizione */
 }
 
 /* Effetto focus */
