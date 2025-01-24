@@ -84,14 +84,11 @@ const VisualizationPost = () => {
             {posts.map(post => (
                 <div key={post.id} className={styles.post}>
                     <h2>{post.title}</h2>
-                    {post.image && <img src={post.image} alt={post.title} className={styles.image} />}
+                    {post.image && <img src={post.image} alt={post.title} className={styles.image}/>}
                     <p>{post.body}</p>
-                    <div className={styles.postDetails}>
-                        <p>Date: {new Date(post.date).toLocaleDateString()}</p>
-                        <p>Likes: {post.likes}</p>
-                        <p>Comments: {post.comments.length}</p>
-                    </div>
-        
+                    <div className={styles.date}>Date: {new Date(post.date).toLocaleDateString()}</div>
+                    <div className={styles.likes}>Likes: {post.likes}</div>
+                    <div className={styles.comments}>Comments: {post.comments.length}</div>
                     {openAccordion === post.id && (
                         <div className={styles.accordion}>
                             {post.comments.map(comment => (
@@ -104,21 +101,22 @@ const VisualizationPost = () => {
                     )}
                     {isLoggedIn && (
                         <div className={styles.buttonGroup}>
-                            <button className={styles.leftButton} onClick={() => addLike(post.id)}>
-                                <AiTwotoneLike /> 
+                            <button className={styles.likeButton} onClick={() => addLike(post.id)}>
+                                <AiTwotoneLike/>
                             </button>
-                            <div className={styles.rightButtons}>
-                                <button onClick={() => addComment(post.id)}><TfiCommentAlt /></button>
+                            <div className={styles.commentButtons}>
+                                <button onClick={() => addComment(post.id)}><TfiCommentAlt/></button>
                                 <button onClick={() => toggleAccordion(post.id)}>
-                                    {openAccordion === post.id ? <RxEyeClosed /> : <LiaComments />}
+                                    {openAccordion === post.id ? <RxEyeClosed/> : <LiaComments/>}
                                 </button>
                             </div>
                         </div>
                     )}
                 </div>
             ))}
-            {loading && <div>Caricando altri post..</div>}
+            {loading && <div>Caricando altri post...</div>}
         </div>
+
     );
 };
 
