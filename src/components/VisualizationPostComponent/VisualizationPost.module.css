@@ -5,9 +5,10 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #00000018;
     transition: background-color 0.4s ease;
+    position: relative; /* Aggiunto per consentire il posizionamento assoluto */
 }
 
-.post:hover{
+.post:hover {
     background-color: #100a2175;
 }
 
@@ -23,7 +24,37 @@
     justify-content: space-between;
     font-size: 0.9rem;
     color: #5d5252;
-    margin: 10px 0;   
+    margin: 10px 0;
+}
+
+.date {
+    position: absolute;
+    top: 15px; /* Stessa distanza del bottone blu */
+    right: 15px; /* Stessa distanza del bottone blu */
+}
+
+.likes {
+    position: absolute;
+    bottom: 60px;
+    left: 15px; /* Stessa distanza del bottone blu */
+}
+
+.like-button {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+}
+
+.comments {
+    position: absolute;
+    bottom: 60px;
+    right: 15px; /* Stessa distanza del bottone blu */
+}
+
+.comment-buttons {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
 }
 
 .accordion {
@@ -67,10 +98,10 @@ button {
     background-color: #007BFF;
     color: #fff;
     font-size: 0.9rem;
-    transition: background-color 0.3s;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 button:hover {
     background-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
 }
-
