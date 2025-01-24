@@ -54,14 +54,27 @@ const PostComponent = () => {
         //ho tutto e posso spedire al BACKEND
         createPost(postObject, user.accessToken)
             .then(data => {
+
+                // Se è andato a buon fine, reimposta i campi del form
+                setTitle('');
+                setBody('');
+                setImage(null);
+                setError('');
+
                 //se è andato a buon fine stampo un messaggio in console
+                alert('Post creato con successo');
                 console.log('Post creato con successo:', data);
             })
+
             .catch(error => {
+
                 //se non è andato a buon fine stampo un messaggio in console con l'errore
+                alert('Errore nella creazione del post. Si prega di riprovare.');
                 console.error('Errore nella creazione del post:', error);
             });
     }
+
+    //parte stilistica della creazione del post
         if (user && user.accessToken) {
             return (
                 <>
