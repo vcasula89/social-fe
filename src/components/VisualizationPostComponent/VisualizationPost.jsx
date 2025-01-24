@@ -28,7 +28,7 @@ const VisualizationPost = () => {
     useEffect(() => {
         const fetchPosts = async (page) => {
             try {
-                const response = await fetch(`${config.api.BASE_URL}/posts?page=${page}`);
+                const response = await fetch(`${config.api.BASE_URL}/api/posts?page=${page}`);
                 if (!response.ok) {
                     throw new Error('Qualcosa è andato storto');
                 }

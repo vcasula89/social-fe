@@ -2,6 +2,7 @@ import styles from './HomePage.module.css';
 import CreatePostComponent from '../CreatePostComponent/CreatePostComponent.jsx'
 import PostListComponent from '../PostListComponent/PostListComponent.jsx';
 
+
 const HomePage = () => {
     return (
         <div className={styles.homePage}>
@@ -17,3 +18,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
