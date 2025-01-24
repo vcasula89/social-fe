@@ -27,7 +27,7 @@ const Header = () => {
             <div className={styles.button__container}>
                 {user && user.displayName ? (
                 <>
-                    <Avatar userId={user.id} initialAvatar={user.avatarUrl} />
+                    <Avatar />
                     <div>{user.displayName}</div>
                         <button onClick={logout} aria-label="Logout">
                             <FaArrowRightFromBracket />
