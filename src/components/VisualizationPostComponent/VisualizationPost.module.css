@@ -1,50 +1,107 @@
 .post {
-    border: 1px solid #ddd;
-    padding: 16px;
-    margin-bottom: 16px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #00000018;
+    transition: background-color 0.4s ease;
+    position: relative; /* Aggiunto per consentire il posizionamento assoluto */
 }
 
-.post h2 {
-    margin-top: 0;
+.post:hover {
+    background-color: #100a2175;
 }
 
-.post img {
-    max-width: 100%;
+.image {
+    width: 100%;
     height: auto;
-    border-radius: 8px;
+    border-radius: 5px;
+    margin: 10px 0;
 }
 
-.post p {
-    margin: 8px 0;
+.postDetails {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #5d5252;
+    margin: 10px 0;
+}
+
+.date {
+    position: absolute;
+    top: 15px; /* Stessa distanza del bottone blu */
+    right: 15px; /* Stessa distanza del bottone blu */
+}
+
+.likes {
+    position: absolute;
+    bottom: 60px;
+    left: 15px; /* Stessa distanza del bottone blu */
+}
+
+.like-button {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+}
+
+.comments {
+    position: absolute;
+    bottom: 60px;
+    right: 15px; /* Stessa distanza del bottone blu */
+}
+
+.comment-buttons {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
 }
 
 .accordion {
-    margin-top: 16px;
-    padding: 16px;
-    border-top: 1px solid #ddd;
-    background-color: #fff;
+    background-color: #00000018;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
 }
 
 .comment {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
 }
 
-.comment p {
-    margin: 4px 0;
+.buttonGroup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.leftButton {
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1rem;
+}
+
+.rightButtons {
+    display: flex;
+    gap: 10px;
 }
 
 button {
-    margin-right: 8px;
-    padding: 8px 16px;
+    padding: 8px 12px;
     border: none;
     border-radius: 4px;
-    background-color: #007bff;
-    color: white;
     cursor: pointer;
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 button:hover {
     background-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
 }
