@@ -1,4 +1,142 @@
-.postBox{
-    border: 1px solid green;
+/* Stile generale del form */
+.postForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* Distanza uniforme tra gli elementi */
     width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 15px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #2d2d2d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #fff;
+}
+
+/* Gruppi di form */
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 5px; /* Spazio tra il label e l'input */
+}
+
+.formGroup label {
+    font-weight: bold;
+    color: #7181ff;
+    text-align: left;
+}
+
+/* Stile degli input e textarea */
+textarea,
+input[type="text"] {
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #3b3b3b;
+    color: #fff;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+    margin-top: 5px;
+    padding: 8px 10px; /* Spazio interno */
+    resize: none; /* Blocca il ridimensionamento */
+    transition: border-color 0.3s ease-in-out;
+}
+
+/* Altezza specifica per textarea */
+textarea.title {
+    height: 60px; /* Altezza per il titolo */
+}
+
+textarea.body {
+    height: 85px; /* Altezza per la descrizione */
+}
+
+/* Effetto focus */
+textarea:focus,
+input[type="text"]:focus {
+    border-color: #0078d7;
+    box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
+}
+
+/* Messaggi di errore */
+.errorMessage {
+    color: #ff1f1f;
+    margin-top: 10px;
+}
+
+/* Contenitore dei bottoni */
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Posizionamento: icona a sinistra e bottone a destra */
+    margin-top: 20px;
+    gap: 10px; /* Spazio tra gli elementi */
+}
+
+/* Etichetta per caricamento immagine */
+.iconLabel {
+    display: flex; /* Flexbox per allineare icona e testo */
+    align-items: center;
+    justify-content: center; /* Centrare il contenuto */
+    background-color: #142cff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    gap: 5px; /* Spazio tra icona e testo */
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.iconLabel:hover {
+    background-color: rgb(0, 102, 255);
+    box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
+}
+
+.uploadIcon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    transition: transform 0.2s ease-in-out;
+}
+
+.iconLabel:hover .uploadIcon {
+    transform: scale(1.1);
+}
+
+/* Bottone di submit */
+.submitButton {
+    padding: 10px 20px;
+    background-color: #142cff;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.submitButton:hover {
+    background-color: rgb(0, 102, 255);
+    box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 500px) {
+    .buttonContainer {
+        flex-direction: column; /* Disposizione verticale */
+        align-items: stretch; /* I bottoni occupano tutta la larghezza */
+        gap: 10px;
+    }
+
+    .iconLabel,
+    .submitButton {
+        justify-content: center;
+    }
 }
