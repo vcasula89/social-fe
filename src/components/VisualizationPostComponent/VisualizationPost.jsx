@@ -6,6 +6,8 @@ import { LiaComments } from "react-icons/lia";
 import { TfiCommentAlt } from "react-icons/tfi";
 import { RxEyeClosed } from "react-icons/rx";
 
+
+
 const VisualizationPost = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -24,7 +26,7 @@ const VisualizationPost = () => {
 
         checkAuth();
     }, []);
-
+    //eseguo una chiamata API per ottenere i post
     useEffect(() => {
         const fetchPosts = async (page) => {
             try {
@@ -47,6 +49,7 @@ const VisualizationPost = () => {
         fetchPosts(page);
     }, [page]);
 
+    //implemrntazione dello scroll, quando arrivo alla fine della pagina carico altri post
     useEffect(() => {
         const handleScroll = () => {
             if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading || !hasMore) {
@@ -59,16 +62,17 @@ const VisualizationPost = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [loading, hasMore]);
 
+    //apertura dell'accordion per la visualizzaione dei commenti
     const toggleAccordion = (postId) => {
         setOpenAccordion(openAccordion === postId ? null : postId);
     };
 
     const addLike = (postId) => {
-        // Implementa la logica per aggiungere un like
+        // Implementare la logica per aggiungere un like
     };
 
     const addComment = (postId) => {
-        // Implementa la logica per aggiungere un commento
+        // Implementare la logica per aggiungere un commento
     };
 
     if (loading) {
@@ -78,21 +82,22 @@ const VisualizationPost = () => {
     if (error) {
         return <div>Error: {error.message}</div>;
     }
-
+     
+    //parte di come vengono visualizzati i post
     return (
         <div>
-            {posts.map(post => (
-                <div key={post.id} className={styles.post}>
+            {posts.map((post, postIndex) => (
+                <div key={post.id || postIndex} className={styles.post}>
                     <h2>{post.title}</h2>
-                    {post.image && <img src={post.image} alt={post.title} className={styles.image}/>}
+                    {post.image && <img src={post.image} alt={post.title} className={styles.image} />}
                     <p>{post.body}</p>
                     <div className={styles.date}>Date: {new Date(post.date).toLocaleDateString()}</div>
                     <div className={styles.likes}>Likes: {post.likes}</div>
                     <div className={styles.comments}>Comments: {post.comments.length}</div>
                     {openAccordion === post.id && (
                         <div className={styles.accordion}>
-                            {post.comments.map(comment => (
-                                <div key={comment.id} className={styles.comment}>
+                            {post.comments.map((comment, commentIndex) => (
+                                <div key={comment.id || commentIndex} className={styles.comment}>
                                     <p>{comment.text}</p>
                                     <p>By: {comment.author}</p>
                                 </div>
@@ -102,12 +107,12 @@ const VisualizationPost = () => {
                     {isLoggedIn && (
                         <div className={styles.buttonGroup}>
                             <button className={styles.likeButton} onClick={() => addLike(post.id)}>
-                                <AiTwotoneLike/>
+                                <AiTwotoneLike />
                             </button>
                             <div className={styles.commentButtons}>
-                                <button onClick={() => addComment(post.id)}><TfiCommentAlt/></button>
+                                <button onClick={() => addComment(post.id)}><TfiCommentAlt /></button>
                                 <button onClick={() => toggleAccordion(post.id)}>
-                                    {openAccordion === post.id ? <RxEyeClosed/> : <LiaComments/>}
+                                    {openAccordion === post.id ? <RxEyeClosed /> : <LiaComments />}
                                 </button>
                             </div>
                         </div>
@@ -116,8 +121,8 @@ const VisualizationPost = () => {
             ))}
             {loading && <div>Caricando altri post...</div>}
         </div>
-
     );
+    
 };
 
 export default VisualizationPost;
