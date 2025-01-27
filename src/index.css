@@ -43,6 +43,7 @@ body {
     min-width: 320px;
     min-height: 100vh;
     height:100vh
+    var(--secondary-background)
 }
 
 input, textarea {
