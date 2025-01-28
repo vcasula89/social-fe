@@ -7,7 +7,6 @@ import { TfiCommentAlt } from "react-icons/tfi";
 import { RxEyeClosed } from "react-icons/rx";
 
 
-
 const VisualizationPost = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,6 +15,7 @@ const VisualizationPost = () => {
     const [hasMore, setHasMore] = useState(true);
     const [openAccordion, setOpenAccordion] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [commentText, setCommentText] = useState('');
 
     useEffect(() => {
         // Simulazione di controllo autenticazione
@@ -23,12 +23,11 @@ const VisualizationPost = () => {
             const userIsLoggedIn = true;
             setIsLoggedIn(userIsLoggedIn);
         };
-
         checkAuth();
     }, []);
-    //eseguo una chiamata API per ottenere i post
+
     useEffect(() => {
-        const fetchPosts = async (page) => {
+        const fetchPosts = async () => {
             try {
                 const response = await fetch(`${config.api.BASE_URL}/posts?page=${page}`);
                 if (!response.ok) {
@@ -45,11 +44,10 @@ const VisualizationPost = () => {
                 setLoading(false);
             }
         };
-    
-        fetchPosts(page);
+
+        fetchPosts();
     }, [page]);
 
-    //implemrntazione dello scroll, quando arrivo alla fine della pagina carico altri post
     useEffect(() => {
         const handleScroll = () => {
             if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading || !hasMore) {
@@ -62,17 +60,69 @@ const VisualizationPost = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, [loading, hasMore]);
 
-    //apertura dell'accordion per la visualizzaione dei commenti
     const toggleAccordion = (postId) => {
         setOpenAccordion(openAccordion === postId ? null : postId);
     };
 
-    const addLike = (postId) => {
-        // Implementare la logica per aggiungere un like
+    //funzione per l'aggiunta dei like
+    const addLike = async (postId) => {
+        try {
+            console.log(`Adding like to post ${postId}`);
+            const response = await fetch(`${config.api.BASE_URL}/post/like`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ postId, userId })
+            });
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                console.error('Error in addLike:', errorMessage);
+                throw new Error('Errore nel mettere il like');
+            }
+            const updatedPost = await response.json();
+            setPosts(prevPosts => prevPosts.map(post =>
+                post.id === postId ? { ...post, likes: updatedPost.likes } : post
+            ));
+        } catch (error) {
+            setError(error);
+            console.error('Error in addLike:', error);
+        }
     };
 
-    const addComment = (postId) => {
-        // Implementare la logica per aggiungere un commento
+    //funzione per l'aggiunta dei commenti
+    const addComment = async (postId, commentText) => {
+        try {
+            console.log(`Adding comment to post ${postId}: ${commentText}`);
+            const response = await fetch(`${config.api.BASE_URL}/comment`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ postId, text: commentText, userId })
+            });
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                console.error('Error in addComment:', errorMessage);
+                throw new Error('Errore nel mettere il commento');
+            }
+            const updatedComment = await response.json();
+            setPosts(prevPosts => prevPosts.map(post =>
+                post.id === postId ? { ...post, comments: [...post.comments, updatedComment] } : post
+            ));
+        } catch (error) {
+            setError(error);
+            console.error('Error in addComment:', error);
+        }
+    };
+
+    const handleCommentChange = (e) => {
+        setCommentText(e.target.value);
+    };
+
+    const handleSubmitComment = (postId) => {
+        addComment(postId, commentText);
+        setCommentText('');
     };
 
     if (loading) {
@@ -82,37 +132,45 @@ const VisualizationPost = () => {
     if (error) {
         return <div>Error: {error.message}</div>;
     }
-     
-    //parte di come vengono visualizzati i post
+
     return (
         <div>
-            {posts.map((post, postIndex) => (
-                <div key={post.id || postIndex} className={styles.post}>
+            {posts.map(post => (
+                <div key={post.id} className={styles.post}>
                     <h2>{post.title}</h2>
-                    {post.image && <img src={post.image} alt={post.title} className={styles.image} />}
+                    {post.image && <img src={post.image} alt={post.title} className={styles.image}/>}
                     <p>{post.body}</p>
                     <div className={styles.date}>Date: {new Date(post.date).toLocaleDateString()}</div>
                     <div className={styles.likes}>Likes: {post.likes}</div>
                     <div className={styles.comments}>Comments: {post.comments.length}</div>
                     {openAccordion === post.id && (
                         <div className={styles.accordion}>
-                            {post.comments.map((comment, commentIndex) => (
-                                <div key={comment.id || commentIndex} className={styles.comment}>
+                            {post.comments.map(comment => (
+                                <div key={comment.id} className={styles.comment}>
                                     <p>{comment.text}</p>
                                     <p>By: {comment.author}</p>
                                 </div>
                             ))}
+                            <div className={styles.commentForm}>
+                                <input
+                                    type="text"
+                                    value={commentText}
+                                    onChange={handleCommentChange}
+                                    placeholder="Scrivi un commento..."
+                                />
+                                <button onClick={() => handleSubmitComment(post.id)}>Invia</button>
+                            </div>
                         </div>
                     )}
                     {isLoggedIn && (
                         <div className={styles.buttonGroup}>
                             <button className={styles.likeButton} onClick={() => addLike(post.id)}>
-                                <AiTwotoneLike />
+                                <AiTwotoneLike/>
                             </button>
                             <div className={styles.commentButtons}>
-                                <button onClick={() => addComment(post.id)}><TfiCommentAlt /></button>
+                                <button onClick={() => toggleAccordion(post.id)}><TfiCommentAlt/></button>
                                 <button onClick={() => toggleAccordion(post.id)}>
-                                    {openAccordion === post.id ? <RxEyeClosed /> : <LiaComments />}
+                                    {openAccordion === post.id ? <RxEyeClosed/> : <LiaComments/>}
                                 </button>
                             </div>
                         </div>
@@ -122,7 +180,6 @@ const VisualizationPost = () => {
             {loading && <div>Caricando altri post...</div>}
         </div>
     );
-    
 };
 
 export default VisualizationPost;
