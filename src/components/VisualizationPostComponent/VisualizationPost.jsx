@@ -18,7 +18,9 @@ const VisualizationPost = () => {
     const [hasMore, setHasMore] = useState(true);
     const [openAccordion, setOpenAccordion] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [commentText, setCommentText] = useState('');
     const user = useSelector(UserSelector);
+
     useEffect(() => {
         // Simulazione di controllo autenticazione
         const checkAuth = () => {
@@ -59,11 +61,11 @@ const VisualizationPost = () => {
                 setLoading(false);
             }
         };
-    
+
         fetchPosts(page);
     }, [page]);
 
-    //implementazione dello scroll, quando arrivo alla fine della pagina carico altri post
+    //implemrntazione dello scroll, quando arrivo alla fine della pagina carico altri post
     useEffect(() => {
         const handleScroll = () => {
             if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading || !hasMore) {
@@ -81,52 +83,10 @@ const VisualizationPost = () => {
         setOpenAccordion(openAccordion === postId ? null : postId);
     };
 
-    //funzione che viene attivata quando abbiamo onClick sul bottone del like
     const addLike = (postId, isLiked) => {
 
-            //ho tutto e posso spedire al BACKEND
-            likeDislikePost(postId, user.accessToken, isLiked)
-                .then((data)=>{
-                    console.log(data);
-                    // Trova l'indice del post da aggiornare
-                    const postIndex = posts.findIndex(post => post._id === postId);
-
-                    if (postIndex !== -1) {
-                        //Crea una copia del post da aggiornare, prendendo il likesCounter dal BE e isLiked dal post,
-                        //invertendo la logica tra mi piace/non mi piace
-                        const updatedPost = {...posts[postIndex], likesCounter: data.likesCounter, isLiked:!isLiked};
-
-                        // Crea una nuova copia dell'array con il post aggiornato
-                        const updatedPosts = [
-                            ...posts.slice(0, postIndex),
-                            updatedPost,
-                            ...posts.slice(postIndex + 1)
-                        ];
-
-                        // Aggiorna lo stato con il nuovo array
-                        setPosts(updatedPosts);
-                        console.log("Post aggiornato", updatedPost);
-                    }
-                })
-
-                .catch(error => {
-
-                });
-            return;
-    }
-
-
-
-    const showLike = (isLiked) => {
-        if (isLiked) {
-            return <p>Non mi piace più</p>
-        }
-        return <p>Mi piace</p>
-    }
-
-    const addComment = (postId) => {
         //ho tutto e posso spedire al BACKEND
-        addCommentPost(postId, user.accessToken, commentText)
+        likeDislikePost(postId, user.accessToken, isLiked)
             .then((data)=>{
                 console.log(data);
                 // Trova l'indice del post da aggiornare
@@ -135,7 +95,7 @@ const VisualizationPost = () => {
                 if (postIndex !== -1) {
                     //Crea una copia del post da aggiornare, prendendo il likesCounter dal BE e isLiked dal post,
                     //invertendo la logica tra mi piace/non mi piace
-                    const updatedPost = {...posts[postIndex], commentCounter };
+                    const updatedPost = {...posts[postIndex], likesCounter: data.likesCounter, isLiked:!isLiked};
 
                     // Crea una nuova copia dell'array con il post aggiornato
                     const updatedPosts = [
@@ -154,7 +114,11 @@ const VisualizationPost = () => {
 
             });
         return;
+    }
 
+    const handleSubmitComment = (postId) => {
+        addComment(postId, commentText);
+        setCommentText('');
     };
 
     if (loading) {
@@ -164,9 +128,8 @@ const VisualizationPost = () => {
     if (error) {
         return <div>Error: {error.message}</div>;
     }
-
-
-//parte di come vengono visualizzati i post
+     
+    //parte di come vengono visualizzati i post
     return (
         <div>
             {posts.map((post, postIndex) => (
@@ -185,6 +148,15 @@ const VisualizationPost = () => {
                                     <p>By: {comment.userId.displayName}</p>
                                 </div>
                             ))}
+                            <div className={styles.commentForm}>
+                                <input
+                                    type="text"
+                                    value={commentText}
+                                    onChange={handleCommentChange}
+                                    placeholder="Scrivi un commento..."
+                                />
+                                <button onClick={() => handleSubmitComment(post.id)}>Invia</button>
+                            </div>
                         </div>
                     )}
                     {isLoggedIn && (
@@ -194,9 +166,9 @@ const VisualizationPost = () => {
                                 <AiTwotoneLike />
                             </button>
                             <div className={styles.commentButtons}>
-                                <button onClick={() => addComment(post.id)}><TfiCommentAlt /></button>
+                                <button onClick={() => toggleAccordion(post.id)}><TfiCommentAlt/></button>
                                 <button onClick={() => toggleAccordion(post.id)}>
-                                    {openAccordion === post.id ? <RxEyeClosed /> : <LiaComments />}
+                                    {openAccordion === post.id ? <RxEyeClosed/> : <LiaComments/>}
                                 </button>
                             </div>
                         </div>
