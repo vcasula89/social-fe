@@ -1,5 +1,5 @@
 import {useState} from "react";
-import Logo from "../../assets/logo-tnv-academy.png"
+import Logo from "../../assets/logosocial.png";
 import {Link, useNavigate} from "react-router";
 import Input from "../Input/Input.jsx";
 import useInput from "../../hooks/useInput.js";

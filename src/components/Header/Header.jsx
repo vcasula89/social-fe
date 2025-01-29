@@ -6,6 +6,8 @@ import {useSelector} from "react-redux";
 import {UserSelector} from "../../reducers/user.slice.js";
 import {FaRegSun, FaMoon, FaArrowRightFromBracket} from "react-icons/fa6";
 import useLogout from "../../hooks/useLogout.jsx";
+import Logo from "../../assets/logosocial.png"
+import Logodark from "../../assets/logodark.png"
 
 const Header = () => {
     const {theme, setTheme} = useContext(ThemeContext);
@@ -20,7 +22,13 @@ const Header = () => {
     return (
         <header className={styles.header}>
             <div className={styles.logo}>
-                <Link to="/">TheNet</Link>
+                <Link to="/">
+                <img 
+                src={theme === 'light' ? Logodark : Logo} 
+                alt="Logo" 
+                style={{ height: '50px', width: 'auto' }} 
+                />
+                </Link>
             </div>
 
             <div className={styles.button__container}>

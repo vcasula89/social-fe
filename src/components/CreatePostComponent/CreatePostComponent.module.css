@@ -24,13 +24,12 @@
 
 .formGroup label {
     font-weight: bold;
-    color: #7181ff;
+    color: #0078d7;
     text-align: left;
 }
 
 /* Stile degli input e textarea */
-textarea,
-input[type="text"] {
+textarea {
     width: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border: 1px solid #444;

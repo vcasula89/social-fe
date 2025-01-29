@@ -1,4 +1,4 @@
-import Logo from "../../assets/logo-tnv-academy.png";
+import Logo from "../../assets/logosocial.png";
 import Input from "../Input/Input.jsx";
 import {useNavigate} from "react-router";
 import {isEmail} from "../../util/validation.js";

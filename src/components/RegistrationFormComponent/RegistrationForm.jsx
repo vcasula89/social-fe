@@ -1,6 +1,6 @@
 import { useState} from "react";
 import styles from "./RegistrationForm.module.css";
-import Logo from "../../assets/logo-tnv-academy.png"
+import Logo from "../../assets/logosocial.png";
 import {Link, useNavigate} from "react-router";
 import useInput from "../../hooks/useInput.js";
 import {isEmail, hasMinLength, isNotEmpty, isEqualsToOtherValue} from "../../util/validation.js";
