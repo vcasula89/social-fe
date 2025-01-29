@@ -5,7 +5,9 @@ import { AiTwotoneLike } from "react-icons/ai";
 import { LiaComments } from "react-icons/lia";
 import { TfiCommentAlt } from "react-icons/tfi";
 import { RxEyeClosed } from "react-icons/rx";
-
+import {useSelector} from "react-redux";
+import {UserSelector} from "../../reducers/user.slice.js"
+import {likeDislikePost} from "../../services/likeDislikePost.service.js";
 
 
 const VisualizationPost = () => {
@@ -16,7 +18,7 @@ const VisualizationPost = () => {
     const [hasMore, setHasMore] = useState(true);
     const [openAccordion, setOpenAccordion] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+    const user = useSelector(UserSelector);
     useEffect(() => {
         // Simulazione di controllo autenticazione
         const checkAuth = () => {
@@ -30,7 +32,19 @@ const VisualizationPost = () => {
     useEffect(() => {
         const fetchPosts = async (page) => {
             try {
-                const response = await fetch(`${config.api.BASE_URL}/posts?page=${page}`);
+                let response = {};
+                if(user != null && user.accessToken != null) {
+                    response = await fetch(`${config.api.BASE_URL}/posts?page=${page}`,{
+                        method: 'GET',
+                        headers: { 'Authorization': `Bearer ${user.accessToken}` },
+                    });
+                }else{
+                    response = await fetch(`${config.api.BASE_URL}/posts?page=${page}`,{
+                        method: 'GET',
+
+                    });
+                }
+
                 if (!response.ok) {
                     throw new Error('Qualcosa è andato storto');
                 }
@@ -49,7 +63,7 @@ const VisualizationPost = () => {
         fetchPosts(page);
     }, [page]);
 
-    //implemrntazione dello scroll, quando arrivo alla fine della pagina carico altri post
+    //implementazione dello scroll, quando arrivo alla fine della pagina carico altri post
     useEffect(() => {
         const handleScroll = () => {
             if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading || !hasMore) {
@@ -67,12 +81,80 @@ const VisualizationPost = () => {
         setOpenAccordion(openAccordion === postId ? null : postId);
     };
 
-    const addLike = (postId) => {
-        // Implementare la logica per aggiungere un like
-    };
+    //funzione che viene attivata quando abbiamo onClick sul bottone del like
+    const addLike = (postId, isLiked) => {
+
+            //ho tutto e posso spedire al BACKEND
+            likeDislikePost(postId, user.accessToken, isLiked)
+                .then((data)=>{
+                    console.log(data);
+                    // Trova l'indice del post da aggiornare
+                    const postIndex = posts.findIndex(post => post._id === postId);
+
+                    if (postIndex !== -1) {
+                        //Crea una copia del post da aggiornare, prendendo il likesCounter dal BE e isLiked dal post,
+                        //invertendo la logica tra mi piace/non mi piace
+                        const updatedPost = {...posts[postIndex], likesCounter: data.likesCounter, isLiked:!isLiked};
+
+                        // Crea una nuova copia dell'array con il post aggiornato
+                        const updatedPosts = [
+                            ...posts.slice(0, postIndex),
+                            updatedPost,
+                            ...posts.slice(postIndex + 1)
+                        ];
+
+                        // Aggiorna lo stato con il nuovo array
+                        setPosts(updatedPosts);
+                        console.log("Post aggiornato", updatedPost);
+                    }
+                })
+
+                .catch(error => {
+
+                });
+            return;
+    }
+
+
+
+    const showLike = (isLiked) => {
+        if (isLiked) {
+            return <p>Non mi piace più</p>
+        }
+        return <p>Mi piace</p>
+    }
 
     const addComment = (postId) => {
-        // Implementare la logica per aggiungere un commento
+        //ho tutto e posso spedire al BACKEND
+        addCommentPost(postId, user.accessToken, commentText)
+            .then((data)=>{
+                console.log(data);
+                // Trova l'indice del post da aggiornare
+                const postIndex = posts.findIndex(post => post._id === postId);
+
+                if (postIndex !== -1) {
+                    //Crea una copia del post da aggiornare, prendendo il likesCounter dal BE e isLiked dal post,
+                    //invertendo la logica tra mi piace/non mi piace
+                    const updatedPost = {...posts[postIndex], commentCounter };
+
+                    // Crea una nuova copia dell'array con il post aggiornato
+                    const updatedPosts = [
+                        ...posts.slice(0, postIndex),
+                        updatedPost,
+                        ...posts.slice(postIndex + 1)
+                    ];
+
+                    // Aggiorna lo stato con il nuovo array
+                    setPosts(updatedPosts);
+                    console.log("Post aggiornato", updatedPost);
+                }
+            })
+
+            .catch(error => {
+
+            });
+        return;
+
     };
 
     if (loading) {
@@ -82,8 +164,9 @@ const VisualizationPost = () => {
     if (error) {
         return <div>Error: {error.message}</div>;
     }
-     
-    //parte di come vengono visualizzati i post
+
+
+//parte di come vengono visualizzati i post
     return (
         <div>
             {posts.map((post, postIndex) => (
@@ -92,21 +175,22 @@ const VisualizationPost = () => {
                     {post.image && <img src={post.image} alt={post.title} className={styles.image} />}
                     <p>{post.body}</p>
                     <div className={styles.date}>Date: {new Date(post.date).toLocaleDateString()}</div>
-                    <div className={styles.likes}>Likes: {post.likes}</div>
+                    <div className={styles.likes}>Likes: {post.likesCounter}</div>
                     <div className={styles.comments}>Comments: {post.comments.length}</div>
                     {openAccordion === post.id && (
                         <div className={styles.accordion}>
                             {post.comments.map((comment, commentIndex) => (
                                 <div key={comment.id || commentIndex} className={styles.comment}>
-                                    <p>{comment.text}</p>
-                                    <p>By: {comment.author}</p>
+                                    <p>{comment.commentText}</p>
+                                    <p>By: {comment.userId.displayName}</p>
                                 </div>
                             ))}
                         </div>
                     )}
                     {isLoggedIn && (
                         <div className={styles.buttonGroup}>
-                            <button className={styles.likeButton} onClick={() => addLike(post.id)}>
+                            {showLike(post.isLiked)}
+                            <button className={styles.likeButton} onClick={()=> addLike(post._id, post.isLiked)}>
                                 <AiTwotoneLike />
                             </button>
                             <div className={styles.commentButtons}>
