@@ -8,6 +8,7 @@ import { RxEyeClosed } from "react-icons/rx";
 import {useSelector} from "react-redux";
 import {UserSelector} from "../../reducers/user.slice.js"
 import {likeDislikePost} from "../../services/likeDislikePost.service.js";
+import {addCommentPost, updateCommentPost} from "../../services/commentPost.service.js";
 
 
 const VisualizationPost = () => {
@@ -65,7 +66,7 @@ const VisualizationPost = () => {
         fetchPosts(page);
     }, [page]);
 
-    //implemrntazione dello scroll, quando arrivo alla fine della pagina carico altri post
+    //implementazione dello scroll, quando arrivo alla fine della pagina carico altri post
     useEffect(() => {
         const handleScroll = () => {
             if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading || !hasMore) {
@@ -115,6 +116,80 @@ const VisualizationPost = () => {
             });
         return;
     }
+    const showLike = (isLiked) => {
+        if (isLiked) {
+            return <p>Non mi piace più</p>
+        }
+        return <p>Mi piace</p>
+    }
+
+    const addComment = (postId, commentText) => {
+        //ho tutto e posso spedire al BACKEND
+        addCommentPost(postId, user.accessToken, commentText)
+            .then((data)=>{
+                console.log(data);
+                // Trova l'indice del post da aggiornare
+                const postIndex = posts.findIndex(post => post._id === postId);
+
+                if (postIndex !== -1) {
+                    //Crea una copia del post da aggiornare, prendendo il commentsCounter dal BE
+
+                    const updatedPost = {...posts[postIndex], commentsCounter: data.commentsCounter, comments: data.comments };
+
+                    // Crea una nuova copia dell'array con il post aggiornato
+                    const updatedPosts = [
+                        ...posts.slice(0, postIndex),
+                        updatedPost,
+                        ...posts.slice(postIndex + 1)
+                    ];
+
+                    // Aggiorna lo stato con il nuovo array
+                    setPosts(updatedPosts);
+                    console.log("Post aggiornato", updatedPost);
+                }
+            })
+
+            .catch(error => {
+
+            });
+        return;
+
+    };
+
+    /*const updateComment = (postId, commentId, newCommentText) => {
+        updateCommentPost(commentId, user.accessToken, newCommentText)
+            .then((data) => {
+                console.log(data);
+
+                // Trova l'indice del post che contiene il commento
+                const postIndex = posts.findIndex(post => post._id === postId);
+                if (postIndex !== -1) {
+                    // Trova l'indice del commento da aggiornare
+                    const commentIndex = posts[postIndex].comments.findIndex(comment => comment._id === commentId);
+                    if (commentIndex !== -1) {
+                        // Clona il post e aggiorna il commento specifico
+                        const updatedComments = [...posts[postIndex].comments];
+                        updatedComments[commentIndex] = { ...updatedComments[commentIndex], commentText: newCommentText };
+
+                        const updatedPost = { ...posts[postIndex], comments: updatedComments };
+
+                        // Aggiorna lo stato con il post modificato
+                        const updatedPosts = [...posts];
+                        updatedPosts[postIndex] = updatedPost;
+                        setPosts(updatedPosts);
+
+                        console.log("Commento aggiornato", updatedPost);
+                    }
+                }
+            })
+            .catch(error => {
+                console.error("Errore nell'aggiornamento del commento", error);
+            });
+    };
+*/
+    const handleCommentChange = (e) => {
+        setCommentText(e.target.value);
+    };
 
     const handleSubmitComment = (postId) => {
         addComment(postId, commentText);
@@ -133,17 +208,17 @@ const VisualizationPost = () => {
     return (
         <div>
             {posts.map((post, postIndex) => (
-                <div key={post.id || postIndex} className={styles.post}>
+                <div key={post._id || postIndex} className={styles.post}>
                     <h2>{post.title}</h2>
                     {post.image && <img src={post.image} alt={post.title} className={styles.image} />}
                     <p>{post.body}</p>
                     <div className={styles.date}>Date: {new Date(post.date).toLocaleDateString()}</div>
                     <div className={styles.likes}>Likes: {post.likesCounter}</div>
-                    <div className={styles.comments}>Comments: {post.comments.length}</div>
-                    {openAccordion === post.id && (
+                    <div className={styles.comments}>Comments: {post.commentsCounter}</div>
+                    {openAccordion === post._id && (
                         <div className={styles.accordion}>
                             {post.comments.map((comment, commentIndex) => (
-                                <div key={comment.id || commentIndex} className={styles.comment}>
+                                <div key={comment._id || commentIndex} className={styles.comment}>
                                     <p>{comment.commentText}</p>
                                     <p>By: {comment.userId.displayName}</p>
                                 </div>
@@ -155,7 +230,7 @@ const VisualizationPost = () => {
                                     onChange={handleCommentChange}
                                     placeholder="Scrivi un commento..."
                                 />
-                                <button onClick={() => handleSubmitComment(post.id)}>Invia</button>
+                                <button onClick={() => handleSubmitComment(post._id)}>Invia</button>
                             </div>
                         </div>
                     )}
@@ -166,9 +241,9 @@ const VisualizationPost = () => {
                                 <AiTwotoneLike />
                             </button>
                             <div className={styles.commentButtons}>
-                                <button onClick={() => toggleAccordion(post.id)}><TfiCommentAlt/></button>
-                                <button onClick={() => toggleAccordion(post.id)}>
-                                    {openAccordion === post.id ? <RxEyeClosed/> : <LiaComments/>}
+                                <button onClick={() => toggleAccordion(post._id)}><TfiCommentAlt/></button>
+                                <button onClick={() => toggleAccordion(post._id)}>
+                                    {openAccordion === post._id ? <RxEyeClosed/> : <LiaComments/>}
                                 </button>
                             </div>
                         </div>
