@@ -5,6 +5,8 @@ import { AiTwotoneLike } from "react-icons/ai";
 import { LiaComments } from "react-icons/lia";
 import { TfiCommentAlt } from "react-icons/tfi";
 import { RxEyeClosed } from "react-icons/rx";
+import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineDislike } from "react-icons/ai";
 import {useSelector} from "react-redux";
 import {UserSelector} from "../../reducers/user.slice.js"
 import {likeDislikePost} from "../../services/likeDislikePost.service.js";
@@ -116,12 +118,14 @@ const VisualizationPost = () => {
             });
         return;
     }
-    const showLike = (isLiked) => {
-        if (isLiked) {
-            return <p>Non mi piace più</p>
-        }
-        return <p>Mi piace</p>
-    }
+    const showLike = (isLiked, postId) => {
+        return (
+            <button className={styles.likeButton} onClick={() => addLike(postId, isLiked)}>
+                {isLiked ?<AiOutlineDislike /> : <AiOutlineLike />}
+                {isLiked ? ' Non mi piace più' : ' Mi piace'}
+            </button>
+        );
+    };
 
     const addComment = (postId, commentText) => {
         //ho tutto e posso spedire al BACKEND
@@ -208,42 +212,39 @@ const VisualizationPost = () => {
     return (
         <div>
             {posts.map((post, postIndex) => (
-                <div key={post._id || postIndex} className={styles.post}>
-                    <h2>{post.title}</h2>
-                    {post.image && <img src={post.image} alt={post.title} className={styles.image} />}
-                    <p>{post.body}</p>
-                    <div className={styles.date}>Date: {new Date(post.date).toLocaleDateString()}</div>
-                    <div className={styles.likes}>Likes: {post.likesCounter}</div>
-                    <div className={styles.comments}>Comments: {post.commentsCounter}</div>
-                    {openAccordion === post._id && (
-                        <div className={styles.accordion}>
-                            {post.comments.map((comment, commentIndex) => (
-                                <div key={comment._id || commentIndex} className={styles.comment}>
-                                    <p>{comment.commentText}</p>
-                                    <p>By: {comment.userId.displayName}</p>
-                                </div>
-                            ))}
-                            <div className={styles.commentForm}>
-                                <input
-                                    type="text"
-                                    value={commentText}
-                                    onChange={handleCommentChange}
-                                    placeholder="Scrivi un commento..."
-                                />
-                                <button onClick={() => handleSubmitComment(post._id)}>Invia</button>
-                            </div>
-                        </div>
-                    )}
-                    {isLoggedIn && (
-                        <div className={styles.buttonGroup}>
-                            {showLike(post.isLiked)}
-                            <button className={styles.likeButton} onClick={()=> addLike(post._id, post.isLiked)}>
-                                <AiTwotoneLike />
-                            </button>
-                            <div className={styles.commentButtons}>
-                                <button onClick={() => toggleAccordion(post._id)}><TfiCommentAlt/></button>
-                                <button onClick={() => toggleAccordion(post._id)}>
-                                    {openAccordion === post._id ? <RxEyeClosed/> : <LiaComments/>}
+    <div key={post._id || postIndex} className={styles.post}>
+        <h2>{post.title}</h2>
+        {post.image && <img src={post.image} alt={post.title} className={styles.image} />}
+        <p>{post.body}</p>
+        <div className={styles.date}>Date: {new Date(post.date).toLocaleDateString()}</div>
+        <div className={styles.likes}>Likes: {post.likesCounter}</div>
+        <div className={styles.comments}>Comments: {post.commentsCounter}</div>
+        {openAccordion === post._id && (
+            <div className={styles.accordion}>
+                {post.comments.map((comment, commentIndex) => (
+                    <div key={comment._id || commentIndex} className={styles.comment}>
+                        <p>{comment.commentText}</p>
+                        <p>By: {comment.userId.displayName}</p>
+                    </div>
+                ))}
+                <div className={styles.commentForm}>
+                    <input
+                        type="text"
+                        value={commentText}
+                        onChange={handleCommentChange}
+                        placeholder="Scrivi un commento..."
+                    />
+                    <button onClick={() => handleSubmitComment(post._id)}>Invia</button>
+                </div>
+            </div>
+        )}
+        {isLoggedIn && (
+            <div className={styles.buttonGroup}>
+                {showLike(post.isLiked, post._id)}
+                <div className={styles.commentButtons}>
+                    <button onClick={() => toggleAccordion(post._id)}><TfiCommentAlt /></button>
+                    <button onClick={() => toggleAccordion(post._id)}>
+                        {openAccordion === post._id ? <RxEyeClosed /> : <LiaComments />}
                                 </button>
                             </div>
                         </div>
