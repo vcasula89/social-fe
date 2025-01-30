@@ -17,7 +17,7 @@
     background-color: var(--background-color);
     --input-background: var(--background-color);
 
-    --secondary-background: #2b3a49;
+    --secondary-background: rgba(43, 58, 73, 0);
     --secondary-background-rgb: 43, 58, 73;
     --todo-item-background: #223244
 

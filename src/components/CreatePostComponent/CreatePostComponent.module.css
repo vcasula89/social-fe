@@ -139,3 +139,10 @@ input[type="text"]:focus {
         justify-content: center;
     }
 }
+
+:root {
+    --new-background-color: #A8D3F9FF; /* Sostituisci con il colore desiderato */
+    --new-text-color: #000000; /* Sostituisci con il colore desiderato */
+    --new-border-color: #65b5ff; /* Sostituisci con il colore desiderato */
+}
+
