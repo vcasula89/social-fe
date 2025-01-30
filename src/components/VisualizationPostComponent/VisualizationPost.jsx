@@ -231,6 +231,20 @@ const VisualizationPost = () => {
                             {post.comments.map((comment, commentIndex) => (
                                 <div key={comment._id || commentIndex} className={styles.comment}>
                                     <p>{comment.commentText}</p>
+                                    <div className={styles.author}>
+                                    <img 
+                                        src={comment.userId?.avatar} 
+                                        className={styles.avatar} 
+                                        alt={comment.userId?.displayName} 
+                                        />
+                                        <span className={styles.authorName}>
+                                        {comment.userId?.displayName}
+                                        </span>
+                                        </div>
+                                <div>
+                                    
+                                    <p>{comment.commentText}</p>
+                                </div>
                                     <p>By: {comment.userId.displayName}</p>
                                 </div>
                             ))}

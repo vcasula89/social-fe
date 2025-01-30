@@ -6,7 +6,7 @@ import PostListComponent from '../PostListComponent/PostListComponent.jsx';
 const HomePage = () => {
     return (
         <div className={styles.homePage}>
-            <h1>Benvenuto su TheNet!</h1>
+            
             <div className={styles.createPostSection}>
                 <CreatePostComponent />
             </div>
