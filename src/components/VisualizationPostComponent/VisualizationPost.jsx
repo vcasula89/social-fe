@@ -34,37 +34,46 @@ const VisualizationPost = () => {
         checkAuth();
     }, []);
     //eseguo una chiamata API per ottenere i post
-    useEffect(() => {
-        const fetchPosts = async (page) => {
-            try {
-                let response = {};
-                if(user != null && user.accessToken != null) {
-                    response = await fetch(`${config.api.BASE_URL}/posts?page=${page}`,{
-                        method: 'GET',
-                        headers: { 'Authorization': `Bearer ${user.accessToken}` },
-                    });
-                }else{
-                    response = await fetch(`${config.api.BASE_URL}/posts?page=${page}`,{
-                        method: 'GET',
+    const fetchPosts = async (page) => {
+        try {
+            let cursor = new Date().toISOString(); // Usa la data corrente per la prima chiamata
 
-                    });
-                }
-
-                if (!response.ok) {
-                    throw new Error('Qualcosa è andato storto');
-                }
-                const data = await response.json();
-                setPosts(prevPosts => [...prevPosts, ...data]);
-                if (data.length < 25) {
-                    setHasMore(false);
-                }
-            } catch (error) {
-                setError(error);
-            } finally {
-                setLoading(false);
+            if (posts.length > 0) {
+                // Se ci sono già post, prendi la data dell'ultimo post
+                cursor = new Date(posts[posts.length - 1].createdAt).toISOString();
             }
-        };
 
+            let response = {};
+            const url = `${config.api.BASE_URL}/posts?cursor=${encodeURIComponent(cursor)}&limit=25`;
+
+            if (user != null && user.accessToken != null) {
+                response = await fetch(url, {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${user.accessToken}` },
+                });
+            } else {
+                response = await fetch(url, { method: 'GET' });
+            }
+
+            if (!response.ok) {
+                throw new Error('Qualcosa è andato storto');
+            }
+
+            const data = await response.json();
+            setPosts(prevPosts => [...prevPosts, ...data]);
+
+            if (data.length < 25) {
+                setHasMore(false);
+            }
+        } catch (error) {
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+    useEffect(() => {
         fetchPosts(page);
     }, [page]);
 
