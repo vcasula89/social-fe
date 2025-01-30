@@ -61,11 +61,11 @@ const router = createBrowserRouter([
 ]);
 
 createRoot(document.getElementById('root')).render(
-    <StrictMode>
+
         <Provider store={store}>
             <PersistGate persistor={persistor}>
                 <RouterProvider router={router}/>
             </PersistGate>
         </Provider>
-    </StrictMode>,
+  ,
 )
