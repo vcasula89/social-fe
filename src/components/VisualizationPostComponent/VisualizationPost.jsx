@@ -5,6 +5,8 @@ import { AiTwotoneLike } from "react-icons/ai";
 import { LiaComments } from "react-icons/lia";
 import { TfiCommentAlt } from "react-icons/tfi";
 import { RxEyeClosed } from "react-icons/rx";
+import { AiOutlineLike } from "react-icons/ai";
+import { AiOutlineDislike } from "react-icons/ai";
 import {useSelector} from "react-redux";
 import {UserSelector} from "../../reducers/user.slice.js"
 import {likeDislikePost} from "../../services/likeDislikePost.service.js";
@@ -125,12 +127,14 @@ const VisualizationPost = () => {
             });
         return;
     }
-    const showLike = (isLiked) => {
-        if (isLiked) {
-            return <p>Non mi piace più</p>
-        }
-        return <p>Mi piace</p>
-    }
+    const showLike = (isLiked, postId) => {
+        return (
+            <button className={styles.likeButton} onClick={() => addLike(postId, isLiked)}>
+                {isLiked ?<AiOutlineDislike /> : <AiOutlineLike />}
+                {isLiked ? ' Non mi piace più' : ' Mi piace'}
+            </button>
+        );
+    };
 
     const addComment = (postId, commentText) => {
         //ho tutto e posso spedire al BACKEND
