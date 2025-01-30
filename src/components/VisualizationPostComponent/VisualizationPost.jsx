@@ -220,10 +220,9 @@ const VisualizationPost = () => {
     //parte di come vengono visualizzati i post
     return (
         <div>
-            {posts.map((post, postIndex) => (
-                <div key={post._id || postIndex} className={styles.post}>
-                    
-            <div className={styles.author}>
+          {posts.map((post, postIndex) => (
+    <div key={post._id || postIndex} className={styles.post}>
+        <div className={styles.author}>
             <img 
                 src={post.userId?.avatar} 
                 className={styles.avatar} 
@@ -232,57 +231,50 @@ const VisualizationPost = () => {
             <span className={styles.authorName}>
                 {post.userId?.displayName}
             </span>
-            </div>
-                    <h2>{post.title}</h2>
-                    {post.image && <img src={post.image} alt={post.title} className={styles.image} />}
-                    <p>{post.body}</p>
-                    <div className={styles.date}>Date: {new Date(post.date).toLocaleDateString()}</div>
-                    <div className={styles.likes}>Likes: {post.likesCounter}</div>
-                    <div className={styles.comments}>Comments: {post.commentsCounter}</div>
-                    {openAccordion === post._id && (
-                        <div className={styles.accordion}>
-                            {post.comments.map((comment, commentIndex) => (
-                                <div key={comment._id || commentIndex} className={styles.comment}>
-                                    <p>{comment.commentText}</p>
-                                    <div className={styles.author}>
-                                    <img 
-                                        src={comment.userId?.avatar} 
-                                        className={styles.avatar} 
-                                        alt={comment.userId?.displayName} 
-                                        />
-                                        <span className={styles.authorName}>
-                                        {comment.userId?.displayName}
-                                        </span>
-                                        </div>
-                                <div>
-                                    
-                                    <p>{comment.commentText}</p>
-                                </div>
-                                    <p>By: {comment.userId.displayName}</p>
-                                </div>
-                            ))}
-                            <div className={styles.commentForm}>
-                                <input
-                                    type="text"
-                                    value={commentText}
-                                    onChange={handleCommentChange}
-                                    placeholder="Scrivi un commento..."
-                                />
-                                <button onClick={() => handleSubmitComment(post._id)}>Invia</button>
-                            </div>
+        </div>
+        <h2>{post.title}</h2>
+        {post.image && <img src={post.image} alt={post.title} className={styles.image} />}
+        <p>{post.body}</p>
+        <div className={styles.date}>Date: {new Date(post.date).toLocaleDateString()}</div>
+        <div className={styles.likes}>Likes: {post.likesCounter}</div>
+        <div className={styles.comments}>Comments: {post.commentsCounter}</div>
+        {openAccordion === post._id && (
+            <div className={styles.accordion}>
+                {post.comments.map((comment, commentIndex) => (
+                    <div key={comment._id || commentIndex} className={styles.comment}>
+                        <p>{comment.commentText}</p>
+                        <div className={styles.author}>
+                            <img 
+                                src={comment.userId?.avatar} 
+                                className={styles.avatar} 
+                                alt={comment.userId?.displayName} 
+                            />
+                            <span className={styles.authorName}>
+                                {comment.userId?.displayName}
+                            </span>
                         </div>
-                    )}
-                    {isLoggedIn && (
-                        <div className={styles.buttonGroup}>
-                            {showLike(post.isLiked)}
-                            <button className={styles.likeButton} onClick={()=> addLike(post._id, post.isLiked)}>
-                                <AiTwotoneLike />
-                            </button>
-                            <div className={styles.commentButtons}>
-                                <button onClick={() => toggleAccordion(post._id)}><TfiCommentAlt/></button>
-                                <button onClick={() => toggleAccordion(post._id)}>
-                                    {openAccordion === post._id ? <RxEyeClosed/> : <LiaComments/>}
-                                </button>
+                        <p>By: {comment.userId.displayName}</p>
+                    </div>
+                ))}
+                <div className={styles.commentForm}>
+                    <input
+                        type="text"
+                        value={commentText}
+                        onChange={handleCommentChange}
+                        placeholder="Scrivi un commento..."
+                    />
+                    <button onClick={() => handleSubmitComment(post._id)}>Invia</button>
+                </div>
+            </div>
+        )}
+        {isLoggedIn && (
+            <div className={styles.buttonGroup}>
+                {showLike(post.isLiked, post._id)}
+                <div className={styles.commentButtons}>
+                    <button onClick={() => toggleAccordion(post._id)}><TfiCommentAlt /></button>
+                    <button onClick={() => toggleAccordion(post._id)}>
+                        {openAccordion === post._id ? <RxEyeClosed /> : <LiaComments />}
+                    </button>
                             </div>
                         </div>
                     )}
