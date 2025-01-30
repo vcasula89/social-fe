@@ -9,7 +9,7 @@
 }
 
 .post:hover {
-    background-color: #2d2d2d;
+    background-color: #100a2175;
 }
 
 .image {
@@ -83,9 +83,20 @@
     color: #666;
 }
 
-.image {
-    width: 100%; 
-    height: auto;
-    display: block;
+.avatar, .commentAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
 }
 
+.author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.authorName {
+    font-weight: bold;
+}

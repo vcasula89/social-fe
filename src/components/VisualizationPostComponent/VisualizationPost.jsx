@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { config } from '../../../config';
-import styles from './visualizationPost.module.css';
+import styles from './VisualizationPost.module.css';
 import { AiTwotoneLike } from "react-icons/ai";
 import { LiaComments } from "react-icons/lia";
 import { TfiCommentAlt } from "react-icons/tfi";
@@ -137,6 +137,17 @@ const VisualizationPost = () => {
         <div>
             {posts.map(post => (
                 <div key={post.id} className={styles.post}>
+                    
+            <div className={styles.author}>
+            <img 
+                src={post.userId?.avatar} 
+                className={styles.avatar} 
+                alt={post.userId?.displayName} 
+            />
+            <span className={styles.authorName}>
+                {post.userId?.displayName}
+            </span>
+            </div>
                     <h2>{post.title}</h2>
                     {post.image && <img src={post.image} alt={post.title} className={styles.image}/>}
                     <p>{post.body}</p>
@@ -147,8 +158,23 @@ const VisualizationPost = () => {
                         <div className={styles.accordion}>
                             {post.comments.map(comment => (
                                 <div key={comment.id} className={styles.comment}>
+                                    
+                        <div className={styles.author}>
+                            <img 
+                                src={comment.userId?.avatar} 
+                                className={styles.avatar} 
+                                alt={comment.userId?.displayName} 
+                            />
+                            <span className={styles.authorName}>
+                                {comment.userId?.displayName}
+                            </span>
+                        </div>
+                                <div>
+                                    
+                                    <p>{comment.commentText}</p>
+                                </div>
                                     <p>{comment.text}</p>
-                                    <p>By: {comment.author}</p>
+                                    
                                 </div>
                             ))}
                             <div className={styles.commentForm}>
