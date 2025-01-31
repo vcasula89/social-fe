@@ -247,7 +247,10 @@ const VisualizationPost = () => {
         <p>{post.body}</p>
         <div className={styles.date}>Date: {new Date(post.date).toLocaleDateString()}</div>
         <div className={styles.likes}>Likes: {post.likesCounter}</div>
-        <div className={styles.comments}>Comments: {post.commentsCounter}</div>
+        <span className={styles.comments} onClick={() => toggleAccordion(post._id)}>
+                Comments: {post.commentsCounter}
+        </span>
+
         {openAccordion === post._id && (
             <div className={styles.accordion}>
                 {post.comments.map((comment, commentIndex) => (
