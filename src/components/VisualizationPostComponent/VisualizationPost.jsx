@@ -246,7 +246,10 @@ const VisualizationPost = () => {
         <h2>{post.title}</h2>
         {post.image && <img src={post.image} alt={post.title} className={styles.image} />}
         <p>{post.body}</p>
-        <div className={styles.date}>Date: {new Date(post.date).toLocaleDateString()}</div>
+        <div className={styles.date}>
+            Date: {new Date(post.createdAt || post.date).toLocaleDateString()}
+        </div>
+
         <div className={styles.likes}>Likes: {post.likesCounter}</div>
         <span className={styles.comments} onClick={() => toggleAccordion(post._id)}>
                 Comments: {post.commentsCounter}
