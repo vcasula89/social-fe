@@ -11,7 +11,11 @@ import {useSelector} from "react-redux";
 import {UserSelector} from "../../reducers/user.slice.js"
 import {likeDislikePost} from "../../services/likeDislikePost.service.js";
 import {addCommentPost, updateCommentPost} from "../../services/commentPost.service.js";
-
+import commentComponent from "../CommentComponent/CommentComponent.jsx";
+import CommentComponent from "../CommentComponent/CommentComponent.jsx";
+import Grid from "@mui/material/Grid2";
+import {Button, Card, CardContent, TextField} from "@mui/material";
+import {BiCaretUp} from "react-icons/bi";
 
 const VisualizationPost = () => {
     const [posts, setPosts] = useState([]);
@@ -23,6 +27,7 @@ const VisualizationPost = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [commentText, setCommentText] = useState('');
     const user = useSelector(UserSelector);
+    console.log(user)
 
     useEffect(() => {
         // Simulazione di controllo autenticazione
@@ -241,30 +246,41 @@ const VisualizationPost = () => {
         {openAccordion === post._id && (
             <div className={styles.accordion}>
                 {post.comments.map((comment, commentIndex) => (
-                    <div key={comment._id || commentIndex} className={styles.comment}>
-                        <p>{comment.commentText}</p>
-                        <div className={styles.author}>
-                            <img 
-                                src={comment.userId?.avatar} 
-                                className={styles.avatar} 
-                                alt={comment.userId?.displayName} 
-                            />
-                            <span className={styles.authorName}>
-                                {comment.userId?.displayName}
-                            </span>
-                        </div>
-                        <p>By: {comment.userId.displayName}</p>
-                    </div>
+                    <CommentComponent comment={comment} commentIndex={commentIndex}  />
                 ))}
-                <div className={styles.commentForm}>
-                    <input
-                        type="text"
-                        value={commentText}
-                        onChange={handleCommentChange}
-                        placeholder="Scrivi un commento..."
-                    />
-                    <button onClick={() => handleSubmitComment(post._id)}>Invia</button>
-                </div>
+                <Grid container spacing={1} mt={2}>
+                    <Grid size={1}>
+                        <img  src={user.avatarUrl} className={styles.avatar} alt={user.displayName} />
+                    </Grid>
+                    <Grid size={11}>
+                        <Grid size={12}>{user.displayName}</Grid>
+                        <Grid size={12}>
+                            <Card>
+                                <CardContent sx={{ padding: 0.5 }}>
+                                    <TextField
+
+                                        fullWidth
+                                        id="standard-multiline-static"
+                                        multiline
+                                        minRows={3}
+                                        value={commentText}
+                                        onChange={handleCommentChange}
+                                        defaultValue="Scrivi un commento..."
+                                    />
+                                </CardContent>
+                            </Card>
+
+                        </Grid>
+                        <Grid container spacing={1} mt={1}>
+                            <Grid size={12} sx={{textAlign: "right"}}>
+                                <Button variant="contained" OnClick={() => handleSubmitComment(post._id)}>
+                                    Invia
+                                </Button>
+                            </Grid>
+
+                        </Grid>
+                    </Grid>
+                </Grid>
             </div>
         )}
         {isLoggedIn && (
