@@ -24,7 +24,7 @@ const Header = () => {
             <div className={styles.logo}>
                 <Link to="/">
                 <img 
-                src={theme === 'light' ? Logodark : Logo} 
+                src={theme === 'light' ? Logodark : Logo}
                 alt="Logo" 
                 style={{ height: '50px', width: 'auto' }} 
                 />
@@ -45,9 +45,6 @@ const Header = () => {
                         Login
                     </Link>
                 )}
-                <button onClick={switchTheme} aria-label="Cambia tema">
-                    {theme === 'light' ? <FaMoon /> : <FaRegSun />}
-                </button>
             </div>
         </header>
     );
