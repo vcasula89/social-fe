@@ -174,37 +174,26 @@ const VisualizationPost = () => {
 
     };
 
-    /*const updateComment = (postId, commentId, newCommentText) => {
-        updateCommentPost(commentId, user.accessToken, newCommentText)
-            .then((data) => {
-                console.log(data);
+    const pullOutComment = ( commentId, postId) => {
+        setPosts(prevPosts => {
+            return prevPosts.map(post => {
+                if (String(post._id) === String(postId)) {
 
-                // Trova l'indice del post che contiene il commento
-                const postIndex = posts.findIndex(post => post._id === postId);
-                if (postIndex !== -1) {
-                    // Trova l'indice del commento da aggiornare
-                    const commentIndex = posts[postIndex].comments.findIndex(comment => comment._id === commentId);
-                    if (commentIndex !== -1) {
-                        // Clona il post e aggiorna il commento specifico
-                        const updatedComments = [...posts[postIndex].comments];
-                        updatedComments[commentIndex] = { ...updatedComments[commentIndex], commentText: newCommentText };
-
-                        const updatedPost = { ...posts[postIndex], comments: updatedComments };
-
-                        // Aggiorna lo stato con il post modificato
-                        const updatedPosts = [...posts];
-                        updatedPosts[postIndex] = updatedPost;
-                        setPosts(updatedPosts);
-
-                        console.log("Commento aggiornato", updatedPost);
+                    if (!post.comments) {
+                        return post;
                     }
+
+                    const updatedComments = post.comments.filter(comment => String(comment._id) !== String(commentId));
+
+                    return { ...post, comments: updatedComments };
                 }
-            })
-            .catch(error => {
-                console.error("Errore nell'aggiornamento del commento", error);
+                return post;
             });
+        });
     };
-*/
+
+
+
     const handleCommentChange = (e) => {
         setCommentText(e.target.value);
     };
@@ -246,7 +235,7 @@ const VisualizationPost = () => {
         {openAccordion === post._id && (
             <div className={styles.accordion}>
                 {post.comments.map((comment, commentIndex) => (
-                    <CommentComponent comment={comment} commentIndex={commentIndex}  />
+                    <CommentComponent comment={comment} commentIndex={commentIndex} postId={post._id} pullOutCommentEvent={pullOutComment} />
                 ))}
                 <Grid container spacing={1} mt={2}>
                     <Grid size={1}>
@@ -273,7 +262,7 @@ const VisualizationPost = () => {
                         </Grid>
                         <Grid container spacing={1} mt={1}>
                             <Grid size={12} sx={{textAlign: "right"}}>
-                                <Button variant="contained" OnClick={() => handleSubmitComment(post._id)}>
+                                <Button variant="contained" onClick={() => handleSubmitComment(post._id)}>
                                     Invia
                                 </Button>
                             </Grid>
