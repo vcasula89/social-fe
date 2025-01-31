@@ -11,16 +11,17 @@ import { UserSelector } from "../../reducers/user.slice.js";
 import { likeDislikePost } from "../../services/likeDislikePost.service.js";
 import {addCommentPost, updateCommentPost} from "../../services/commentPost.service.js";
 
+
 const VisualizationPost = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [openAccordion, setOpenAccordion] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [commentText, setCommentText] = useState("");
-  const user = useSelector(UserSelector);
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+    const [openAccordion, setOpenAccordion] = useState(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [commentText, setCommentText] = useState('');
+    const user = useSelector(UserSelector);
 
   useEffect(() => {
     // Simulazione di controllo autenticazione
@@ -258,36 +259,31 @@ const VisualizationPost = () => {
           </div>
           {openAccordion === post._id && (
             <div className={styles.accordion}>
-              {post.comments.map((comment, commentIndex) => (
-                <div
-                  key={comment._id || commentIndex}
-                  className={styles.comment}
-                >
-                  <p>{comment.commentText}</p>
-                  <div className={styles.author}>
-                    <img
-                      src={comment.userId?.avatar}
-                      className={styles.avatar}
-                      alt={comment.userId?.displayName}
+                {post.comments.map((comment, commentIndex) => (
+                    <div key={comment._id || commentIndex} className={styles.comment}>
+                        <p>{comment.commentText}</p>
+                        <div className={styles.author}>
+                            <img 
+                                src={comment.userId?.avatar} 
+                                className={styles.avatar} 
+                                alt={comment.userId?.displayName} 
+                            />
+                            <span className={styles.authorName}>
+                                {comment.userId?.displayName}
+                            </span>
+                        </div>
+                        <p>By: {comment.userId.displayName}</p>
+                    </div>
+                ))}
+                <div className={styles.commentForm}>
+                    <input
+                        type="text"
+                        value={commentText}
+                        onChange={handleCommentChange}
+                        placeholder="Scrivi un commento..."
                     />
-                    <span className={styles.authorName}>
-                      {comment.userId?.displayName}
-                    </span>
-                  </div>
-                  <p>By: {comment.userId.displayName}</p>
+                    <button onClick={() => handleSubmitComment(post._id)}>Invia</button>
                 </div>
-              ))}
-              <div className={styles.commentForm}>
-                <input
-                  type="text"
-                  value={commentText}
-                  onChange={handleCommentChange}
-                  placeholder="Scrivi un commento..."
-                />
-                <button onClick={() => handleSubmitComment(post._id)}>
-                  Invia
-                </button>
-              </div>
             </div>
           )}
           {isLoggedIn && (
