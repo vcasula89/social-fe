@@ -7,9 +7,9 @@
     max-width: 600px;
     margin: 20px auto;
     padding: 15px;
-    border: 1px solid #444;
+    border: 1px solid rgba(68, 68, 68, 0.21);
     border-radius: 5px;
-    background-color: #2d2d2d;
+    background-color: rgba(45, 45, 45, 0.35);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     color: #fff;
 }
@@ -138,11 +138,5 @@ input[type="text"]:focus {
     .submitButton {
         justify-content: center;
     }
-}
-
-:root {
-    --new-background-color: #A8D3F9FF; /* Sostituisci con il colore desiderato */
-    --new-text-color: #000000; /* Sostituisci con il colore desiderato */
-    --new-border-color: #65b5ff; /* Sostituisci con il colore desiderato */
 }
 

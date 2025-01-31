@@ -56,13 +56,13 @@
 
 .likeButton:hover, .commentButtons button:hover {
     background-color: rgb(0, 102, 255);
+    color: #fff;
     box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
 }
 
 .commentButtons {
     display: flex;
     gap: 8px;
-    color: white;
 }
 
 .comments {
@@ -70,6 +70,12 @@
     bottom: 60px;
     right: 15px; /* Stessa distanza del bottone blu */
     cursor: pointer;
+}
+
+.comments:hover {
+    color: #ffffff;
+    text-shadow: #7181ff 1px 0px 0px;
+    transition: 0.3s;
 }
 
 
