@@ -241,6 +241,7 @@ const VisualizationPost = () => {
             <span className={styles.authorName}>
               {post.userId?.displayName}
             </span>
+
         </div>
         <h2>{post.title}</h2>
         {post.image && <img src={post.image} alt={post.title} className={styles.image} />}
@@ -251,9 +252,13 @@ const VisualizationPost = () => {
 
         <div className={styles.likes}>Likes: {post.likesCounter}</div>
         <span className={styles.comments} onClick={() => toggleAccordion(post._id)}>
+
             Comments: {post.commentsCounter}
         </span>
+
+       
         {openAccordion === post._id && (
+
             <div className={styles.accordion}>
                 {post.comments.map((comment, commentIndex) => (
                     <div key={comment._id || commentIndex} className={styles.comment}>
