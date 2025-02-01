@@ -179,6 +179,16 @@ const VisualizationPost = () => {
     return;
   };
 
+    const pullOutComment = ( commentId, postId) => {
+        setPosts(prevPosts => {
+            return prevPosts.map(post => {
+                if (String(post._id) === String(postId)) {
+
+                    if (!post.comments) {
+                        return post;
+                    }
+
+                    const updatedComments = post.comments.filter(comment => String(comment._id) !== String(commentId));
   /*const updateComment = (postId, commentId, newCommentText) => {
         updateCommentPost(commentId, user.accessToken, newCommentText)
             .then((data) => {
@@ -194,20 +204,17 @@ const VisualizationPost = () => {
                         const updatedComments = [...posts[postIndex].comments];
                         updatedComments[commentIndex] = { ...updatedComments[commentIndex], commentText: newCommentText };
 
-                        const updatedPost = { ...posts[postIndex], comments: updatedComments };
-
-                        // Aggiorna lo stato con il post modificato
-                        const updatedPosts = [...posts];
-                        updatedPosts[postIndex] = updatedPost;
-                        setPosts(updatedPosts);
-
-                        console.log("Commento aggiornato", updatedPost);
-                    }
+                    return { ...post, comments: updatedComments };
                 }
-            })
-            .catch(error => {
-                console.error("Errore nell'aggiornamento del commento", error);
+                return post;
             });
+        });
+    };
+
+
+
+    const handleCommentChange = (e) => {
+        setCommentText(e.target.value);
     };
 */
   const handleCommentChange = (e) => {
@@ -259,6 +266,41 @@ const VisualizationPost = () => {
 
             <div className={styles.accordion}>
                 {post.comments.map((comment, commentIndex) => (
+                    <CommentComponent comment={comment} commentIndex={commentIndex} postId={post._id} pullOutCommentEvent={pullOutComment} />
+                ))}
+                <Grid container spacing={1} mt={2}>
+                    <Grid size={1}>
+                        <img  src={user.avatarUrl} className={styles.avatar} alt={user.displayName} />
+                    </Grid>
+                    <Grid size={11}>
+                        <Grid size={12}>{user.displayName}</Grid>
+                        <Grid size={12}>
+                            <Card>
+                                <CardContent sx={{ padding: 0.5 }}>
+                                    <TextField
+
+                                        fullWidth
+                                        id="standard-multiline-static"
+                                        multiline
+                                        minRows={3}
+                                        value={commentText}
+                                        onChange={handleCommentChange}
+                                        defaultValue="Scrivi un commento..."
+                                    />
+                                </CardContent>
+                            </Card>
+
+                        </Grid>
+                        <Grid container spacing={1} mt={1}>
+                            <Grid size={12} sx={{textAlign: "right"}}>
+                                <Button variant="contained" onClick={() => handleSubmitComment(post._id)}>
+                                    Invia
+                                </Button>
+                            </Grid>
+
+                        </Grid>
+                    </Grid>
+                </Grid>
                     <div key={comment._id || commentIndex} className={styles.comment}>
                         <p>{comment.commentText}</p>
                         <div className={styles.author}>
