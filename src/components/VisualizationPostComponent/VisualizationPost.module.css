@@ -31,12 +31,16 @@
     position: absolute;
     top: 15px; /* Stessa distanza del bottone blu */
     right: 15px; /* Stessa distanza del bottone blu */
+    cursor: pointer;
 }
 
 .likes {
-    position: absolute;
+    
     bottom: 60px;
     left: 15px; /* Stessa distanza del bottone blu */
+    cursor: pointer;
+    
+    
 }
 
  
@@ -73,6 +77,12 @@
     text-decoration: underline;
 }
 
+.comments.open {
+    bottom: auto;
+    top: 170px; /* Sposta i commenti in alto quando aperti */
+}
+
+
 .comments:hover {
     color: #ffffff;
     text-shadow: #7181ff 1px 0px 0px;
@@ -92,6 +102,7 @@
     margin-bottom: 10px;
     padding: 5px 0;
     border-bottom: 1px solid #eee;
+    
 }
 
 .buttonGroup {
@@ -118,6 +129,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .authorName {

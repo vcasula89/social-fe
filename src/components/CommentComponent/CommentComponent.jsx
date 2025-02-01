@@ -1,4 +1,4 @@
-import styles from "../VisualizationPostComponent/VisualizationPost.module.css";
+import styles from './CommentComponent.module.css';
 import Grid from '@mui/material/Grid2';
 import Link from '@mui/material/Link';
 import {Card, CardContent, TextField} from "@mui/material";
