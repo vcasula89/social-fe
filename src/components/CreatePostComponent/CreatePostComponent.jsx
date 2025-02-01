@@ -46,7 +46,7 @@ const PostComponent = () => {
             body
         };
 
-        //se l'immagine è presente viene aggiunta all'oggeto payload
+        //se l'immagine è presente viene aggiunta all'oggetto payload
         if (image !== null) {
             postObject.image = image;
         }

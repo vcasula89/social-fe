@@ -6,21 +6,25 @@ import {useSelector} from "react-redux";
 import {UserSelector} from "../../reducers/user.slice.js";
 import {useState} from "react";
 import {updateCommentPost, deleteCommentPost} from "../../services/commentPost.service.js";
-const CommentComponent = ({comment, commentIndex, postId, pullOutCommentEvent }) => {
+const CommentComponent = ({comment, postId, pullOutCommentEvent }) => {
 
     const user = useSelector(UserSelector);
     const [isEditable, setIsEditable] = useState(false);
     const [commentText, setCommentText] = useState(comment.commentText);
 
+    //per poter modificare/cancellare i commenti l'utente deve essere registrato. Confronto quindi user id della persona
+    // loggata e user id del commento. la uso nell'HTML per mostrare i bottoni, se il commento è mio
     const userCompare = () =>{
         if (user.id === comment.userId._id) {
             return true;
         }
         return false;
     }
+    //funzione che serve a rendere editabile il commento. viene chiamata quando l'utente clicca su modifica
     const editCommentInterface = () => {
         setIsEditable(!isEditable)
     }
+    //funzione che serve a revertare l'editabilità del commento. viene chiamata quando l'utente clicca su annulla
     const revertEditing = () => {
         setIsEditable(!isEditable)
     }
@@ -29,7 +33,7 @@ const CommentComponent = ({comment, commentIndex, postId, pullOutCommentEvent })
         setCommentText(e.target.value);
     };
 
-
+    //funzione per modificare il commento
     const updateComment = () => {
        updateCommentPost(comment._id, user.accessToken, commentText)
            .then((data) => {
@@ -41,10 +45,12 @@ const CommentComponent = ({comment, commentIndex, postId, pullOutCommentEvent })
            });
    };
 
+    //funzione per cancellare il commento.
     const deleteComment = () => {
         deleteCommentPost(comment._id, user.accessToken)
             .then((data) => {
-                //zappare via il commento dalla lista post
+                //zappare via il commento dalla lista post. la funzione è un evento, quindi scatena una funzione nel
+                // componente(padre) che incorpora questo componente
                 pullOutCommentEvent(comment._id,postId);
             })
             .catch(error => {
