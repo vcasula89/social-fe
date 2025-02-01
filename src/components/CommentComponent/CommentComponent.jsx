@@ -15,7 +15,7 @@ const CommentComponent = ({comment, postId, pullOutCommentEvent }) => {
     //per poter modificare/cancellare i commenti l'utente deve essere registrato. Confronto quindi user id della persona
     // loggata e user id del commento. la uso nell'HTML per mostrare i bottoni, se il commento è mio
     const userCompare = () =>{
-        if (user.id === comment.userId._id) {
+        if (user.id === comment.userId) {
             return true;
         }
         return false;
@@ -64,13 +64,13 @@ const CommentComponent = ({comment, postId, pullOutCommentEvent }) => {
                 <Grid container spacing={1} mt={2}>
                     <Grid size={1}>
                         <img
-                            src={comment.userId?.avatar}
+                            src={comment.user.avatar}
                             className={styles.avatar}
-                            alt={comment.userId?.displayName}
+                            alt={comment.user.displayName}
                         />
                     </Grid>
                     <Grid size={11}>
-                        <Grid size={12}>{comment.userId?.displayName}</Grid>
+                        <Grid size={12}>{comment.user.displayName}</Grid>
                         <Grid size={12}>
                             <Card>
                                 <CardContent sx={{ padding: 0.5 }}>
@@ -94,7 +94,7 @@ const CommentComponent = ({comment, postId, pullOutCommentEvent }) => {
                             {userCompare() &&(
                                 isEditable ? (
                                     <>
-                                        <Grid item xs={2}><Link onClick={ () => updateComment}>Conferma</Link></Grid>
+                                        <Grid item xs={2}><Link onClick={updateComment}>Conferma</Link></Grid>
                                         <Grid item xs={2}><Link onClick={revertEditing}>Annulla</Link></Grid>
                                     </>
                                 ) : (

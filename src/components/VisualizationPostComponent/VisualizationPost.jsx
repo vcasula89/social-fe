@@ -23,7 +23,6 @@ const VisualizationPost = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [commentText, setCommentText] = useState('');
     const user = useSelector(UserSelector);
-    console.log(user)
 
     useEffect(() => {
         // Simulazione di controllo autenticazione
@@ -101,7 +100,6 @@ const VisualizationPost = () => {
         //ho tutto e posso spedire al BACKEND
         likeDislikePost(postId, user.accessToken, isLiked)
             .then((data)=>{
-                console.log(data);
                 // Trova l'indice del post da aggiornare
                 const postIndex = posts.findIndex(post => post._id === postId);
 
@@ -141,14 +139,14 @@ const VisualizationPost = () => {
         //ho tutto e posso spedire al BACKEND
         addCommentPost(postId, user.accessToken, commentText)
             .then((data)=>{
-                console.log(data);
+                const firstElementIsAPost = data[0];
                 // Trova l'indice del post da aggiornare
                 const postIndex = posts.findIndex(post => post._id === postId);
 
                 if (postIndex !== -1) {
                     //Crea una copia del post da aggiornare, prendendo il commentsCounter dal BE
 
-                    const updatedPost = {...posts[postIndex], commentsCounter: data.commentsCounter, comments: data.comments };
+                    const updatedPost = {...posts[postIndex], commentsCounter: firstElementIsAPost.commentsCounter, comments: firstElementIsAPost.comments };
 
                     // Crea una nuova copia dell'array con il post aggiornato
                     const updatedPosts = [
@@ -214,12 +212,12 @@ const VisualizationPost = () => {
               <div key={post._id || postIndex} className={styles.post}>
                   <div className={styles.author}>
                       <img
-                          src={post.userId?.avatar}
+                          src={post.user?.avatar}
                           className={styles.avatar}
-                          alt={post.userId?.displayName}
+                          alt={post.user?.displayName}
                       />
                       <span className={styles.authorName}>
-                {post.userId?.displayName}
+                {post.user?.displayName}
             </span>
                   </div>
                   <h2>{post.title}</h2>
