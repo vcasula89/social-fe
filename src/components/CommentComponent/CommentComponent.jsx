@@ -60,7 +60,7 @@ const CommentComponent = ({comment, postId, pullOutCommentEvent }) => {
 
     return(
         <>
-            <div>
+            <div className={styles.commentBlock}>
                 <Grid container spacing={1} mt={2}>
                     <Grid size={1}>
                         <img
@@ -89,7 +89,7 @@ const CommentComponent = ({comment, postId, pullOutCommentEvent }) => {
 
                         </Grid>
                         <Grid container spacing={1}>
-                            <Grid item xs={4}>{comment.createdAt}</Grid>
+                            <Grid item xs={4}>Date: {new Date(comment.createdAt).toLocaleString()}</Grid>
 
                             {userCompare() &&(
                                 isEditable ? (

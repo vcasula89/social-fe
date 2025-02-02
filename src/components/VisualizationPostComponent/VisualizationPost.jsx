@@ -108,7 +108,7 @@ const VisualizationPost = () => {
             //Crea una copia del post da aggiornare, prendendo il likesCounter dal BE e isLiked dal post,
             //invertendo la logica tra mi piace/non mi piace
             const updatedPost = {...posts[postIndex], likesCounter: data.likesCounter, isLiked:!isLiked};
-
+            console.log("sto cercando questo errore",data)
             // Crea una nuova copia dell'array con il post aggiornato
             const updatedPosts = [
               ...posts.slice(0, postIndex),
@@ -228,12 +228,6 @@ const VisualizationPost = () => {
               <div className={styles.date}>
                 Date: {new Date(post.createdAt || post.date).toLocaleDateString()}
               </div>
-
-        <div className={styles.likes}>Likes: {post.likesCounter}</div>
-        <span className={styles.comments} onClick={() => toggleAccordion(post._id)}>
-                Comments: {post.commentsCounter}
-        </span>
-
                   <hr/>
                   <Grid container>
                       <Grid size={6}>Likes: {post.likesCounter}</Grid>

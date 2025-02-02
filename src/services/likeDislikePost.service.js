@@ -18,7 +18,9 @@ export const likeDislikePost = async (postId, accessToken) => {
         }
 
         const data = await request.json();
-        return data;
+        const posizione = data[0]
+
+        return posizione;
     } catch (error) {
         console.log('Errore:', error);
         throw error;
