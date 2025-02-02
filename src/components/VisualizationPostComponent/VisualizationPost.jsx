@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { config } from '../../../config';
 import styles from './VisualizationPost.module.css';
 import { TfiCommentAlt } from "react-icons/tfi";
+import { RxEyeClosed } from "react-icons/rx";
 import { AiOutlineLike } from "react-icons/ai";
 import { AiOutlineDislike } from "react-icons/ai";
 import {useSelector} from "react-redux";
@@ -228,71 +229,75 @@ const VisualizationPost = () => {
                 Date: {new Date(post.createdAt || post.date).toLocaleDateString()}
               </div>
 
+        <div className={styles.likes}>Likes: {post.likesCounter}</div>
+        <span className={styles.comments} onClick={() => toggleAccordion(post._id)}>
+                Comments: {post.commentsCounter}
+        </span>
 
-              <hr/>
-              <Grid container>
-                <Grid size={6}>Likes: {post.likesCounter}</Grid>
-                <Grid size={6} sx={{textAlign: "right"}}
-                      onClick={() => toggleAccordion(post._id)}>Comments: {post.commentsCounter}</Grid>
-              </Grid>
-              <hr/>
-              {openAccordion === post._id && (
-                  <div className={styles.accordion}>
-                    {post.comments.map((comment, commentIndex) => (
-                        //sono parametri del componente, cioè ciò di cui il componente ha bisogno per funzionare
-                        <CommentComponent comment={comment} commentIndex={commentIndex} postId={post._id}
-                                          pullOutCommentEvent={pullOutComment}/>
-                    ))}
-                    <Grid container spacing={1} mt={2}>
-                      <Grid size={1}>
-                        <img src={user.avatarUrl} className={styles.avatar} alt={user.displayName}/>
-                      </Grid>
-                      <Grid size={11}>
-                        <Grid size={12}>{user.displayName}</Grid>
-                        <Grid size={12}>
-                          <Card>
-                            <CardContent sx={{padding: 0.5}}>
-                              <TextField
+                  <hr/>
+                  <Grid container>
+                      <Grid size={6}>Likes: {post.likesCounter}</Grid>
+                      <Grid size={6} sx={{textAlign: "right"}}
+                            onClick={() => toggleAccordion(post._id)}>Comments: {post.commentsCounter}</Grid>
+                  </Grid>
+                  <hr/>
+                  {openAccordion === post._id && (
+                      <div className={styles.accordion}>
+                          {post.comments.map((comment, commentIndex) => (
+                              //sono parametri del componente, cioè ciò di cui il componente ha bisogno per funzionare
+                              <CommentComponent comment={comment} commentIndex={commentIndex} postId={post._id}
+                                                pullOutCommentEvent={pullOutComment}/>
+                          ))}
+                          <Grid container spacing={1} mt={2}>
+                              <Grid size={1}>
+                                  <img src={user.avatarUrl} className={styles.avatar} alt={user.displayName}/>
+                              </Grid>
+                              <Grid size={11}>
+                                  <Grid size={12}>{user.displayName}</Grid>
+                                  <Grid size={12}>
+                                      <Card>
+                                          <CardContent sx={{padding: 0.5}}>
+                                              <TextField
 
-                                  fullWidth
-                                  id="standard-multiline-static"
-                                  multiline
-                                  minRows={3}
-                                  value={commentText}
-                                  onChange={handleCommentChange}
-                                  defaultValue="Scrivi un commento..."
-                              />
-                            </CardContent>
-                          </Card>
+                                                  fullWidth
+                                                  id="standard-multiline-static"
+                                                  multiline
+                                                  minRows={3}
+                                                  value={commentText}
+                                                  onChange={handleCommentChange}
+                                                  defaultValue="Scrivi un commento..."
+                                              />
+                                          </CardContent>
+                                      </Card>
 
-                        </Grid>
-                        <Grid container spacing={1} mt={1}>
-                          <Grid size={12} sx={{textAlign: "right"}}>
-                            <Button variant="contained" onClick={() => handleSubmitComment(post._id)}>
-                              Invia
-                            </Button>
+                                  </Grid>
+                                  <Grid container spacing={1} mt={1}>
+                                      <Grid size={12} sx={{textAlign: "right"}}>
+                                          <Button variant="contained" onClick={() => handleSubmitComment(post._id)}>
+                                              Invia
+                                          </Button>
+                                      </Grid>
+
+                                  </Grid>
+                              </Grid>
                           </Grid>
+                      </div>
+                  )}
+                  {isLoggedIn && (
+                      <div className={styles.buttonGroup}>
+                          {showLike(post.isLiked, post._id)}
+                          <div className={styles.commentButtons}>
+                              <button onClick={() => toggleAccordion(post._id)}>Commenta<TfiCommentAlt/></button>
 
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </div>
-              )}
-              {isLoggedIn && (
-                  <div className={styles.buttonGroup}>
-                    {showLike(post.isLiked, post._id)}
-                    <div className={styles.commentButtons}>
-                      <button onClick={() => toggleAccordion(post._id)}>Commenta<TfiCommentAlt/></button>
-
-                    </div>
-                  </div>
-              )}
-            </div>
-        ))}
-        {loading && <div>Caricando altri post...</div>}
-      </div>
-  );
-
+                          </div>
+                      </div>
+                  )}
+              </div>
+          ))}
+            {loading && <div>Caricando altri post...</div>}
+        </div>
+    );
+    
 };
 
 export default VisualizationPost;
