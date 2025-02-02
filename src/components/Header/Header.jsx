@@ -1,33 +1,31 @@
 import styles from './Header.module.css';
-import {useContext, useEffect, useState} from "react";
+import {useContext} from "react";
 import { Link } from 'react-router-dom';
 import {ThemeContext} from "../../contexts/ThemeProvider.jsx";
 import {useSelector} from "react-redux";
 import {UserSelector} from "../../reducers/user.slice.js";
-import {FaRegSun, FaMoon, FaArrowRightFromBracket} from "react-icons/fa6";
+import {FaArrowRightFromBracket} from "react-icons/fa6";
 import useLogout from "../../hooks/useLogout.jsx";
-import Logo from "../../assets/logosocial.png"
-import Logodark from "../../assets/logodark.png"
+import Logo from "../../assets/logosocial.png";
 
 const Header = () => {
-    const {theme, setTheme} = useContext(ThemeContext);
+    const {theme} = useContext(ThemeContext);
     const user = useSelector(UserSelector);
     const {logout} = useLogout();
-
-
-    const switchTheme = () => {
-        setTheme((prevTheme) => prevTheme === 'light' ? 'dark' : 'light');
-    };
 
     return (
         <header className={styles.header}>
             <div className={styles.logo}>
                 <Link to="/">
-                <img 
-                src={theme === 'light' ? Logodark : Logo}
-                alt="Logo" 
-                style={{ height: '50px', width: 'auto' }} 
-                />
+                    <img
+                        src={Logo}
+                        alt="Logo"
+                        style={{ height: '50px', width: 'auto' }}
+                        onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src='/default-logo.png';
+                        }}
+                    />
                 </Link>
             </div>
 
