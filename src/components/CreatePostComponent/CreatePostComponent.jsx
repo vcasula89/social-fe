@@ -120,7 +120,7 @@ const PostComponent = () => {
                                 style={{display: 'none'}}
                                 id="fileInput"
                             />
-                            <button type="submit" className={`${styles.submitButton} ${styles.flexItem}`}>Create Post
+                            <button type="submit" className={`${styles.submitButton} ${styles.flexItem}`}>Crea Post
                             </button>
                         </div>
                     </form>
