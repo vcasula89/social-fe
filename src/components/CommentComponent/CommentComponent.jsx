@@ -78,6 +78,7 @@ const CommentComponent = ({comment, postId, pullOutCommentEvent }) => {
                                     outline: 'none',
                                     backgroundColor: '#3b3b3b',
                                     border: '1px solid #444',
+                                    color: 'white',
                                 }}>
                                     {
                                         !isEditable ? comment.commentText : <TextField
