@@ -136,31 +136,3 @@
     font-weight: bold;
 }
 
-/*--------------------------------------------------------*/
-
-.likesCounter {
-    color: #ff5722; /* Colore del testo per i "mi piace" */
-    font-weight: bold; /* Testo in grassetto per maggiore visibilità */
-}
-
-.commentsCounter {
-    text-align: right;
-    text-decoration: underline; /* Sottolineato per "Comments" */
-    color: #3f51b5; /* Colore del testo per i commenti */
-    cursor: pointer; /* Aggiunta di un puntatore per indicare che è cliccabile */
-}
-
-.accordion {
-    background-color: #f5f5f5; /* Colore di sfondo per il contenitore accordion */
-    padding: 1rem;
-    border-radius: 8px;
-}
-
-.avatar {
-    border-radius: 50%; /* Immagine dell'avatar rotonda */
-    height: 40px;
-    width: 40px;
-}
-
-
-/* Altri stili personalizzati */

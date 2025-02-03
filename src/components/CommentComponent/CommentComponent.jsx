@@ -73,7 +73,12 @@ const CommentComponent = ({comment, postId, pullOutCommentEvent }) => {
                         <Grid size={12}>{comment.user.displayName}</Grid>
                         <Grid size={12}>
                             <Card>
-                                <CardContent sx={{ padding: 0.5 }}>
+                                <CardContent sx={{
+                                    padding: 0.5,
+                                    outline: 'none',
+                                    backgroundColor: '#3b3b3b',
+                                    border: '1px solid #444',
+                                }}>
                                     {
                                         !isEditable ? comment.commentText : <TextField
                                             fullWidth
@@ -99,7 +104,7 @@ const CommentComponent = ({comment, postId, pullOutCommentEvent }) => {
                                     </>
                                 ) : (
                                     <>
-                                        <Grid item xs={2}><Link onClick={editCommentInterface}>Modifica</Link></Grid>
+                                        <Grid item xs={2}><Link onClick={editCommentInterface} >Modifica</Link></Grid>
                                         <Grid item xs={2}><Link onClick={deleteComment}>Elimina</Link></Grid>
                                     </>
                                 )

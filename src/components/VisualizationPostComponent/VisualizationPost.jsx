@@ -230,9 +230,18 @@ const VisualizationPost = () => {
               </div>
                   <hr/>
                   <Grid container>
-                      <Grid size={6}>Likes: {post.likesCounter}</Grid>
-                      <Grid size={6} sx={{textAlign: "right"}}
-                            onClick={() => toggleAccordion(post._id)}>Comments: {post.commentsCounter}</Grid>
+                      <Grid size={6}>Mi piace: {post.likesCounter}</Grid>
+                      <Grid size={6} sx={{
+                        textAlign: "right",
+                        transition: 'border-color 0.3s ease-in-out',
+                        display: 'inline-block', // Permette all'elemento di occupare solo la larghezza del contenuto
+
+                        '&:hover': {
+                          textDecoration: "underline",
+                          textShadow: '0 0 8px #0078D77F'
+                        }
+                      }}
+                            onClick={() => toggleAccordion(post._id)}>Commenti: {post.commentsCounter}</Grid>
                   </Grid>
                   <hr/>
                   {openAccordion === post._id && (
@@ -247,19 +256,67 @@ const VisualizationPost = () => {
                                   <img src={user.avatarUrl} className={styles.avatar} alt={user.displayName}/>
                               </Grid>
                               <Grid size={11}>
-                                  <Grid size={12}>{user.displayName}</Grid>
+                                  <Grid size={12} > {user.displayName}</Grid>
                                   <Grid size={12}>
                                       <Card>
-                                          <CardContent sx={{padding: 0.5}}>
+                                          <CardContent sx={{
+                                            padding: 0.5,
+                                            backgroundColor: '#3b3b3b',
+                                            outline: 'none',
+                                            border: '1px solid #444',
+                                                }}>
                                               <TextField
 
                                                   fullWidth
                                                   id="standard-multiline-static"
                                                   multiline
                                                   minRows={3}
+                                                  label="Scrivi un commento..." // Aggiungi l'etichetta qui
                                                   value={commentText}
                                                   onChange={handleCommentChange}
                                                   defaultValue="Scrivi un commento..."
+                                                  variant="outlined"
+
+                                                  sx={{
+                                                    backgroundColor: '#3b3b3b', // Colore di sfondo
+                                                    '& .MuiOutlinedInput-root': {
+                                                      '& fieldset': {
+                                                        borderColor: '#444', // Colore del bordo
+                                                        borderWidth: '1px',
+                                                        paddingBottom: '5px', // Regola l'altezza del bordo inferiore
+                                                        marginBottom: '-19px', // Regola il margine inferiore se necessario
+                                                      },
+                                                      '&:hover fieldset': {
+                                                        borderColor: '#0078D7', // Colore del bordo durante l'hover
+                                                        boxShadow: '0 0 8px rgba(0, 120, 215, 0.5)',
+                                                        transition: 'border-color 0.3s ease-in-out'
+                                                      },
+                                                      '&.Mui-focused fieldset': {
+                                                        borderColor: '#0078D7',
+                                                        borderWidth: '1px',
+                                                        boxShadow: '0 0 8px rgba(0, 120, 215, 0.5)'
+                                                      },
+                                                    },
+                                                    '& .MuiInputBase-input': {
+                                                      color: 'white', // Assicura che il testo di input sia bianco
+                                                      border: 'none',
+                                                      boxShadow: 'none'
+                                                    },
+                                                    '& .MuiInputLabel-root': {
+                                                      color: '#6e6e6e', // Colore dell'etichetta
+                                                      '&.Mui-focused': {
+                                                        color: '#0078D7' // Colore dell'etichetta quando il campo è in focus
+                                                      },
+                                                      // Hover sull'etichetta al passaggio del mouse
+                                                      '&:hover': {
+                                                        color: '#0078D7'
+                                                      }
+                                                    },
+                                                    // Applicare l'hover al TextField per influenzare l'etichetta
+                                                    '&:hover .MuiInputLabel-root': {
+                                                      color: '#0078D7'
+                                                    }
+                                                  }}
                                               />
                                           </CardContent>
                                       </Card>
@@ -267,7 +324,16 @@ const VisualizationPost = () => {
                                   </Grid>
                                   <Grid container spacing={1} mt={1}>
                                       <Grid size={12} sx={{textAlign: "right"}}>
-                                          <Button variant="contained" onClick={() => handleSubmitComment(post._id)}>
+                                          <Button variant="contained" onClick={() => handleSubmitComment(post._id)}
+                                                  sx={{
+                                                    backgroundColor: '#142cff',
+                                                    boxShadow: 'none',
+                                                    color: 'white',
+                                                    '&:hover': {
+                                                      boxShadow: '0 0 8px #0078D77F',
+                                                      backgroundColor: '#0066FFFF'
+                                                    }
+                                                  }}>
                                               Invia
                                           </Button>
                                       </Grid>
