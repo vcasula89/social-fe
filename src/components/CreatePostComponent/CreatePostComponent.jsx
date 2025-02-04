@@ -5,7 +5,7 @@ import {UserSelector} from "../../reducers/user.slice.js";
 import {createPost} from "../../services/createPost.service.js";
 
 //dichiarazione del componente PostComponent
-const PostComponent = () => {
+const PostComponent = ({updateListEvent}) => {
 
     //stiamo dichiarando delle costanti con i relativi SETTER ( sono funzioni per dare il valore alla costante )
     //useState() lo usiamo per rendere reattiva la costante con un valore iniziale uguale a come dichiarato nelle parentesi
@@ -63,6 +63,7 @@ const PostComponent = () => {
 
                 //se è andato a buon fine stampo un messaggio in console
                 alert('Post creato con successo');
+                updateListEvent();
                 console.log('Post creato con successo:', data);
             })
 

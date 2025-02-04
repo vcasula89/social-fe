@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useImperativeHandle, forwardRef} from 'react';
 import { config } from '../../../config';
 import styles from './VisualizationPost.module.css';
 import { TfiCommentAlt } from "react-icons/tfi";
@@ -14,7 +14,7 @@ import Grid from "@mui/material/Grid2";
 import {Button, Card, CardContent, TextField} from "@mui/material";
 
 
-const VisualizationPost = () => {
+const VisualizationPost = forwardRef((props, ref) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -34,6 +34,18 @@ const VisualizationPost = () => {
 
     checkAuth();
   }, []);
+
+  useImperativeHandle(ref, () => ({
+    updateList
+  }));
+
+  const updateList = async () => {
+    setPosts([]);
+    await fetchPosts(1).then((data) => {
+      setPosts(data.data);
+    })
+  }
+
   //eseguo una chiamata API per ottenere i post
   const fetchPosts = async (page) => {
     try {
@@ -292,6 +304,6 @@ const VisualizationPost = () => {
         </div>
     );
     
-};
+});
 
 export default VisualizationPost;
