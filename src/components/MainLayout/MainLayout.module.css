@@ -5,5 +5,11 @@
     height:calc(100% - 60px);
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
+
     
+}
+
+.main__container::-webkit-scrollbar {
+    display: none;
 }

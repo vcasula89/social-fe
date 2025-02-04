@@ -238,7 +238,8 @@ const VisualizationPost = () => {
 
                         '&:hover': {
                           textDecoration: "underline",
-                          textShadow: '0 0 8px #0078D77F'
+                          textShadow: '0 0 8px #0078D77F',
+                          cursor: "pointer"
                         }
                       }}
                             onClick={() => toggleAccordion(post._id)}>Commenti: {post.commentsCounter}</Grid>
