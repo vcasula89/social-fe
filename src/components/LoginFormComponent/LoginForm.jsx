@@ -8,6 +8,7 @@ import {login} from "../../services/login.service.js";
 import {hasMinLength, isEmail} from "../../util/validation.js";
 import {useDispatch} from "react-redux";
 import {setUser} from "../../reducers/user.slice.js";
+import Grid from "@mui/material/Grid2";
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -73,13 +74,19 @@ const LoginForm = () => {
                    value={passwordValue}
                    onChange={handlePasswordChange}
                    error={formInvalid.password && 'La password deve contenere almeno 8 caratteri'}/>
-            <div className={styles.registrationLink}>
-                <Link to={'/registration'}>Registrati</Link>
-            </div>
-                <div className={styles.resetPasswordLink}>
+
+            <Grid container direction="column" alignItems="flex-start" spacing={1}>
+                <Grid item>
+                    <Link to={'/registration'}>Registrati</Link>
+                </Grid>
+                <Grid item>
                     <Link to={'/recovery-password'}>Ho dimenticato la password</Link>
-                </div>
-                <button>Accedi</button>
+                </Grid>
+                <Grid item>
+                    <button className={styles.loginButton}>Accedi</button>
+                </Grid>
+            </Grid>
+
         </form>
     </div>
 }
