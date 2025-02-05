@@ -312,6 +312,9 @@ const VisualizationPost = () => {
                                                       color: '#0078D7'
                                                     }
                                                   }}
+                                                  InputLabelProps={{
+                                                    shrink: true,
+                                                  }}
                                               />
                                           </CardContent>
                                       </Card>
