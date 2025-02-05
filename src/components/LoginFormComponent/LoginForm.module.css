@@ -28,3 +28,7 @@
     box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
     color: white;
 }
+
+.loginForm label, .recoveryPasswordForm label{
+    color: white;
+}

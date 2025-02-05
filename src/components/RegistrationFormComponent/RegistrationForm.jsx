@@ -67,11 +67,11 @@ const RegistrationForm = () => {
         }).catch(err => console.log(err));
     }
 
-    return <div className="card">
+    return <div style={{backgroundColor: "#00000018"}} className="card">
         <img src={Logo} className="logo" alt="logo"/>
 
-        <h2 style={{textAlign:"center"}}>Registrati</h2>
-            <form onSubmit={submitHandler}>
+        <h2 style={{textAlign:"center", color: "white"}}>Registrati</h2>
+            <form onSubmit={submitHandler} className={styles.registrationForm}>
                 <Input label="Nome"
                        type="text"
                        id="name"
@@ -103,7 +103,8 @@ const RegistrationForm = () => {
                 <button className={styles.loginButton}>Registrati</button>
             </form>
             <div className={styles.backToLogin}>
-                <Link to={'/'}>Torna al Login</Link>
+                <Link style={{color: "white"}} to={'/login'}>Torna al Login</Link>
+
             </div>
 
     </div>

@@ -55,10 +55,10 @@ const LoginForm = () => {
     }
 
 
-    return <div className="card">
+    return <div style={{backgroundColor: "#00000018"}} className="card">
         <img src={Logo} className="logo" alt="logo"/>
-        <h2 style={{textAlign:"center"}}>Accedi</h2>
-        <form onSubmit={submitHandler}>
+        <h2 style={{textAlign:"center", color: "white"}}>Accedi</h2>
+        <form onSubmit={submitHandler} className={styles.loginForm}>
             <Input label="Email"
                    id="email"
                    type="text"
@@ -77,10 +77,10 @@ const LoginForm = () => {
 
             <Grid container direction="column" spacing={1}>
                 <Grid item>
-                    <Link to={'/registration'}>Registrati</Link>
+                    <Link style={{color: "white"}} to={'/registration'}>Registrati</Link>
                 </Grid>
                 <Grid item>
-                    <Link to={'/recovery-password'}>Ho dimenticato la password</Link>
+                    <Link  style={{color: "white"}} to={'/recovery-password'}>Ho dimenticato la password</Link>
                 </Grid>
                 <Grid item>
                     <button className={styles.loginButton}>Accedi</button>

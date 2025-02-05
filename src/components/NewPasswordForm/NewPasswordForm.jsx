@@ -1,4 +1,4 @@
-import Logo from "../../assets/logo-tnv-academy.png";
+import Logo from "../../assets/logosocial.png";
 import Input from "../Input/Input.jsx";
 import {useParams} from "react-router";
 import {hasMinLength, isAlphaNum,isEqualsToOtherValue} from "../../util/validation.js";
@@ -6,6 +6,7 @@ import {useState} from "react";
 import useInput from "../../hooks/useInput.js";
 
 import {isValidToken, newPassword} from "../../services/newPassword.service.js";
+import styles from "./NewPasswordForm.module.css";
 
 
 const NewPasswordForm = () => {
@@ -68,15 +69,15 @@ const NewPasswordForm = () => {
 
     return <>
         {res !== null && (
-            <div className="card">
-                <p>{res.message}</p>
+            <div className="card" style={{backgroundColor: "#00000018"}}>
+                <p style={{color: "white"}}>{res.message}</p>
             </div>
         )}
         {res === null && showForm === true && (
-                <div className="card">
-                    <img src={Logo} className="logo" alt="logo"/>
-                    <h2>Nuova password</h2>
-                    <form onSubmit={submitHandler}>
+            <div className="card" style={{backgroundColor: "#00000018"}}>
+                <img src={Logo} className="logo" alt="logo"/>
+                    <h2 style={{textAlign:"center", color: "white"}}>Nuova password</h2>
+                    <form onSubmit={submitHandler} className={styles.newPasswordForm} >
                         <Input label="Password"
                                id="password"
                                type="password"
@@ -92,7 +93,7 @@ const NewPasswordForm = () => {
                                value={confermaPasswordValue}
                                onChange={handleconfermaPasswordChange}
                                error={formInvalid.confermaPassword && 'Le password inserite devono corrispondere'}/>
-                        <button>Conferma</button>
+                        <button className={styles.loginButton}>Conferma</button>
                     </form>
                 </div>
         )}

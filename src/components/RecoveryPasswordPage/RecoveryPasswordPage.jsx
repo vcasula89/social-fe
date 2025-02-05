@@ -49,15 +49,15 @@ const RecoveryPasswordPage = () => {
         }
         return <>
             {res !== null && (
-                <div className="card">
-                    <p>{res.message}</p>
+                <div className="card" style={{backgroundColor: "#00000018"}}>
+                    <p style={{ color:"white"}}>{res.message}</p>
                 </div>
             )}
             {res === null && (
                 <div className="card">
                     <img src={Logo} className="logo" alt="logo"/>
                     <Grid container direction="column" spacing={1}>
-                    <form onSubmit={submitHandler}>
+                    <form onSubmit={submitHandler} className={styles.recoveryPasswordForm}>
                         <Input label="Email"
                                id="email"
                                type="text"
