@@ -57,7 +57,7 @@ const LoginForm = () => {
 
     return <div className="card">
         <img src={Logo} className="logo" alt="logo"/>
-        <h2>Accedi</h2>
+        <h2 style={{textAlign:"center"}}>Accedi</h2>
         <form onSubmit={submitHandler}>
             <Input label="Email"
                    id="email"
@@ -75,7 +75,7 @@ const LoginForm = () => {
                    onChange={handlePasswordChange}
                    error={formInvalid.password && 'La password deve contenere almeno 8 caratteri'}/>
 
-            <Grid container direction="column" alignItems="flex-start" spacing={1}>
+            <Grid container direction="column" spacing={1}>
                 <Grid item>
                     <Link to={'/registration'}>Registrati</Link>
                 </Grid>

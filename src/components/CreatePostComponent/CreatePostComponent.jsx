@@ -90,7 +90,7 @@ const PostComponent = () => {
                                     maxLength="100"
                                     placeholder="Inserisci il titolo"
                                 ></textarea>
-                            </label>
+                            </label>A
                         </div>
                         <div className={`${styles.formGroup} ${styles.flexContainer}`}>
                             <label htmlFor="body" className={styles.flexItem}>

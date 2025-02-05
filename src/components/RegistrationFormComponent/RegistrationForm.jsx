@@ -7,6 +7,7 @@ import {isEmail, hasMinLength, isNotEmpty, isEqualsToOtherValue} from "../../uti
 import Input from "../Input/Input.jsx";
 import {register} from "../../services/registration.services.js";
 import {FaArrowLeftLong} from "react-icons/fa6";
+import Grid from "@mui/material/Grid2";
 
 const RegistrationForm = () => {
     const navigate = useNavigate();
@@ -68,41 +69,43 @@ const RegistrationForm = () => {
 
     return <div className="card">
         <img src={Logo} className="logo" alt="logo"/>
-        <h2>Registrati</h2>
-        <form onSubmit={submitHandler}>
-            <Input label="Nome"
-                   type="text"
-                   id="name"
-                   name="name"
-                   value={nameValue}
-                   onChange={handleNameChange}
-                   error={formInvalid.name && 'Inserisci il tuo nome'}/>
-            <Input label="Email"
-                   type="text"
-                   id="email"
-                   name="email"
-                   value={emailValue}
-                   onChange={handleEmailChange}
-                   error={formInvalid.email && 'Digita una mail valida'}/>
-            <Input label="Password"
-                   type="password"
-                   id="password"
-                   name="password"
-                   value={passwordValue}
-                   onChange={handlePasswordChange}
-                   error={formInvalid.password && 'La password deve contenere almeno 8 caratteri'}/>
-            <Input label="Conferma password"
-                   type="password"
-                   id="confirm-password"
-                   name="confirm-password"
-                   value={confirmPasswordValue}
-                   onChange={handleConfirmPasswordChange}
-                   error={formInvalid.passwordDoNotMatch && 'Le password devono corrispondere'}/>
-            <button>Registrati</button>
-        </form>
-        <div className={styles.backToLogin}>
-            <Link to={'/'}><FaArrowLeftLong /> Torna al Login</Link>
-        </div>
+
+        <h2 style={{textAlign:"center"}}>Registrati</h2>
+            <form onSubmit={submitHandler}>
+                <Input label="Nome"
+                       type="text"
+                       id="name"
+                       name="name"
+                       value={nameValue}
+                       onChange={handleNameChange}
+                       error={formInvalid.name && 'Inserisci il tuo nome'}/>
+                <Input label="Email"
+                       type="text"
+                       id="email"
+                       name="email"
+                       value={emailValue}
+                       onChange={handleEmailChange}
+                       error={formInvalid.email && 'Digita una mail valida'}/>
+                <Input label="Password"
+                       type="password"
+                       id="password"
+                       name="password"
+                       value={passwordValue}
+                       onChange={handlePasswordChange}
+                       error={formInvalid.password && 'La password deve contenere almeno 8 caratteri'}/>
+                <Input label="Conferma password"
+                       type="password"
+                       id="confirm-password"
+                       name="confirm-password"
+                       value={confirmPasswordValue}
+                       onChange={handleConfirmPasswordChange}
+                       error={formInvalid.passwordDoNotMatch && 'Le password devono corrispondere'}/>
+                <button className={styles.loginButton}>Registrati</button>
+            </form>
+            <div className={styles.backToLogin}>
+                <Link to={'/'}>Torna al Login</Link>
+            </div>
+
     </div>
 }
 

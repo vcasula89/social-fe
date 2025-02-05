@@ -6,6 +6,8 @@ import {recoveryPassword} from "../../services/recoveryPassword.service.js";
 import {useState} from "react";
 import {useDispatch} from "react-redux";
 import useInput from "../../hooks/useInput.js";
+import Grid from "@mui/material/Grid2";
+import styles from "../LoginFormComponent/LoginForm.module.css";
 
 
 const RecoveryPasswordPage = () => {
@@ -54,7 +56,7 @@ const RecoveryPasswordPage = () => {
             {res === null && (
                 <div className="card">
                     <img src={Logo} className="logo" alt="logo"/>
-
+                    <Grid container direction="column" spacing={1}>
                     <form onSubmit={submitHandler}>
                         <Input label="Email"
                                id="email"
@@ -63,9 +65,9 @@ const RecoveryPasswordPage = () => {
                                value={emailValue}
                                onChange={handleEmailChange}
                                error={formInvalid.email && 'Digita una mail valida'}/>
-
-                        <button>Richiedi reset</button>
+                        <button className={styles.loginButton}>Richiedi reset</button>
                     </form>
+                    </Grid>
                 </div>
             )}
 
