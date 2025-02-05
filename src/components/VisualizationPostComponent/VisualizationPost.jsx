@@ -285,7 +285,7 @@ const VisualizationPost = () => {
                                                         borderColor: '#444', // Colore del bordo
                                                         borderWidth: '1px',
                                                         paddingBottom: '5px', // Regola l'altezza del bordo inferiore
-                                                        marginBottom: '-19px', // Regola il margine inferiore se necessario
+                                                        marginBottom: '0px', // Regola il margine inferiore se necessario
                                                       },
                                                       '&:hover fieldset': {
                                                         borderColor: '#0078D7', // Colore del bordo durante l'hover
