@@ -303,6 +303,10 @@ const VisualizationPost = () => {
                                                     },
                                                     '& .MuiInputLabel-root': {
                                                       color: '#6e6e6e', // Colore dell'etichetta
+                                                      backgroundColor: 'transparent',
+                                                      padding: '0 4px',
+                                                      // Assicurati che l'etichetta non sia nascosta
+                                                      zIndex: 1,
                                                       '&.Mui-focused': {
                                                         color: '#0078D7' // Colore dell'etichetta quando il campo è in focus
                                                       },
