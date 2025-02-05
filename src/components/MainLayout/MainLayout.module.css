@@ -10,6 +10,10 @@
     
 }
 
-.main__container::-webkit-scrollbar {
+.main__container::-webkit-scrollbar{
     display: none;
+}
+
+.main__container {
+    scrollbar-width: none; /* Nasconde la scrollbar in Firefox */
 }
