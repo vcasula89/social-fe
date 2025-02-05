@@ -284,8 +284,6 @@ const VisualizationPost = () => {
                                                       '& fieldset': {
                                                         borderColor: '#444', // Colore del bordo
                                                         borderWidth: '1px',
-                                                        paddingBottom: '5px', // Regola l'altezza del bordo inferiore
-                                                        marginBottom: '0px', // Regola il margine inferiore se necessario
                                                       },
                                                       '&:hover fieldset': {
                                                         borderColor: '#0078D7', // Colore del bordo durante l'hover
@@ -308,10 +306,6 @@ const VisualizationPost = () => {
                                                       '&.Mui-focused': {
                                                         color: '#0078D7' // Colore dell'etichetta quando il campo è in focus
                                                       },
-                                                      // Hover sull'etichetta al passaggio del mouse
-                                                      '&:hover': {
-                                                        color: '#0078D7'
-                                                      }
                                                     },
                                                     // Applicare l'hover al TextField per influenzare l'etichetta
                                                     '&:hover .MuiInputLabel-root': {
