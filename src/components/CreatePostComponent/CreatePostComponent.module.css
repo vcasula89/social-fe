@@ -1,12 +1,15 @@
 /* Stile generale del form */
 .postForm {
     padding: 15px;
-    margin: 10px 0;
+
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #00000018;
     transition: background-color 0.4s ease;
     position: relative; /* Aggiunto per consentire il posizionamento assoluto */
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Gruppi di form */
@@ -49,13 +52,13 @@ textarea.body {
     height: 85px; /* Altezza per la descrizione */
 }
 
-/* Effetto focus
-textarea:focus,
-input[type="text"]:focus {
-    border-color: #0078d7;
-    box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
-}
-*/
+/* Effetto focus*/
+    textarea:focus,
+     input[type="text"]:focus{
+        border-color: #0078d7;
+         box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
+     }
+
 /* Messaggi di errore */
 .errorMessage {
     color: #ff1f1f;
@@ -135,4 +138,15 @@ input[type="text"]:focus {
         justify-content: center;
     }
 }
+
+.postList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--secondary-background);
+
+
+}
+
 

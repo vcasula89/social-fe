@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { config } from '../../../config';
 import styles from './VisualizationPost.module.css';
 import { TfiCommentAlt } from "react-icons/tfi";
@@ -25,17 +25,7 @@ const VisualizationPost = () => {
   const [commentText, setCommentText] = useState('');
   const user = useSelector(UserSelector);
 
-  useEffect(() => {
-    // Simulazione di controllo autenticazione
-    const checkAuth = () => {
-      if (user && user.accessToken){
-        const userIsLoggedIn = true;
-        setIsLoggedIn(userIsLoggedIn);
-      }
-    };
 
-    checkAuth();
-  }, []);
   //eseguo una chiamata API per ottenere i post
   const fetchPosts = async (page) => {
     try {
@@ -78,20 +68,29 @@ const VisualizationPost = () => {
 
   useEffect(() => {
     fetchPosts(page);
-  }, [page, fetchPosts]);
+  }, [page]);
 
   //implementazione dello scroll, quando arrivo alla fine della pagina carico altri post
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || loading || !hasMore) {
-        return;
-      }
-      setPage(prevPage => prevPage + 1);
-    };
+  const lastPostRef = useRef(null);
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [loading, hasMore]);
+  const observer = useRef(
+      new IntersectionObserver(
+          (entries) => {
+            const lastPost = entries[0];
+            if (lastPost.isIntersecting) {
+              setPage((prevPage) => prevPage + 1);
+            }
+          },
+          { root: document.getElementById("postListContainer"), rootMargin: "100px", threshold: 1.0 }
+      )
+  );
+
+  useEffect(() => {
+    if (lastPostRef.current) observer.current.observe(lastPostRef.current);
+    return () => observer.current.disconnect();
+  }, [posts, loading, hasMore]);
+
+
 
   //apertura dell'accordion per la visualizzazione dei commenti
   const toggleAccordion = (postId) => {
@@ -210,9 +209,12 @@ const VisualizationPost = () => {
 
   //parte di come vengono visualizzati i post
   return (
-      <div>
+      <Grid container spacing={2}>
+        <Grid xs={6}>
+      <div id="postListContainer" style={{ overflowY: 'auto'}}>
         {posts.map((post, postIndex) => (
-            <div key={post._id || postIndex} className={styles.post}>
+            <div key={post._id || postIndex}  className={styles.post}
+                 ref={postIndex === posts.length - 1 ? lastPostRef : null}>
               <div className={styles.author}>
                 <img
                     src={post.user?.avatar}
@@ -254,7 +256,7 @@ const VisualizationPost = () => {
                               <CommentComponent comment={comment} commentIndex={commentIndex} postId={post._id}
                                                 pullOutCommentEvent={pullOutComment}/>
                           ))}
-                        {isLoggedIn && (
+                        {user && user.accessToken && (
                         <Grid container spacing={1} mt={2}>
                               <Grid size={1}>
                                   <img src={user.avatarUrl} className={styles.avatar} alt={user.displayName}/>
@@ -340,7 +342,7 @@ const VisualizationPost = () => {
 
                       </div>
                   )}
-                  {isLoggedIn && (
+                  {user && user.accessToken && (
                       <div className={styles.buttonGroup}>
                           {showLike(post.isLiked, post._id)}
                           <div className={styles.commentButtons}>
@@ -353,8 +355,10 @@ const VisualizationPost = () => {
           ))}
             {loading && <div>Caricando altri post...</div>}
         </div>
+      </Grid>
+      </Grid>
     );
-    
+
 };
 
 export default VisualizationPost;

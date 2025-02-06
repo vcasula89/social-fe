@@ -1,5 +1,5 @@
 .main__container {
-    max-width: 900px;
+
     margin: 0 auto;
     padding: 2rem;
     height:calc(100% - 60px);
@@ -10,10 +10,3 @@
     
 }
 
-.main__container::-webkit-scrollbar{
-    display: none;
-}
-
-.main__container {
-    scrollbar-width: none; /* Nasconde la scrollbar in Firefox */
-}
