@@ -78,7 +78,7 @@ const VisualizationPost = () => {
 
   useEffect(() => {
     fetchPosts(page);
-  }, [page]);
+  }, [page, fetchPosts]);
 
   //implementazione dello scroll, quando arrivo alla fine della pagina carico altri post
   useEffect(() => {
@@ -93,7 +93,7 @@ const VisualizationPost = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [loading, hasMore]);
 
-  //apertura dell'accordion per la visualizzaione dei commenti
+  //apertura dell'accordion per la visualizzazione dei commenti
   const toggleAccordion = (postId) => {
     setOpenAccordion(openAccordion === postId ? null : postId);
   };
