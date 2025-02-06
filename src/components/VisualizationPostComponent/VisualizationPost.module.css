@@ -136,3 +136,10 @@
     font-weight: bold;
 }
 
+.cardComment,
+.cardComment > .MuiCardContent-root:last-child,
+.cardComment > .MuiCardContent-root
+{
+    padding-bottom: 0 !important;
+}
+

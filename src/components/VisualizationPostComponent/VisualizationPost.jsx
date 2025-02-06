@@ -28,8 +28,10 @@ const VisualizationPost = () => {
   useEffect(() => {
     // Simulazione di controllo autenticazione
     const checkAuth = () => {
-      const userIsLoggedIn = true;
-      setIsLoggedIn(userIsLoggedIn);
+      if (user && user.accessToken){
+        const userIsLoggedIn = true;
+        setIsLoggedIn(userIsLoggedIn);
+      }
     };
 
     checkAuth();
@@ -246,82 +248,72 @@ const VisualizationPost = () => {
                   </Grid>
                   <hr/>
                   {openAccordion === post._id && (
-                      <div className={styles.accordion}>
+                      <div >
                           {post.comments.map((comment, commentIndex) => (
                               //sono parametri del componente, cioè ciò di cui il componente ha bisogno per funzionare
                               <CommentComponent comment={comment} commentIndex={commentIndex} postId={post._id}
                                                 pullOutCommentEvent={pullOutComment}/>
                           ))}
-                          <Grid container spacing={1} mt={2}>
+                        {isLoggedIn && (
+                        <Grid container spacing={1} mt={2}>
                               <Grid size={1}>
                                   <img src={user.avatarUrl} className={styles.avatar} alt={user.displayName}/>
                               </Grid>
                               <Grid size={11}>
                                   <Grid size={12} > {user.displayName}</Grid>
-                                  <Grid size={12}>
-                                      <Card>
-                                          <CardContent sx={{
-                                            padding: 0.5,
-                                            backgroundColor: '#3b3b3b',
-                                            outline: 'none',
-                                            border: '1px solid #444',
-                                                }}>
-                                              <TextField
+                                  <Grid sx={{padding: '0px'}} size={12}>
+                                    <Card >
+                                      <CardContent sx={{
+                                        padding: '0px',
+                                        backgroundColor: '#3b3b3b',
+                                        border: '1px solid #444',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center'
+                                      }}
+                                       className={styles.cardComment}
+                                      >
+                                        <TextField
+                                            fullWidth
+                                            multiline
+                                            minRows={3}
+                                            placeholder='Scrivi un commento'
+                                            value={commentText}
+                                            onChange={handleCommentChange}
+                                            variant="outlined"
+                                            sx={{
+                                              backgroundColor: '#3b3b3b',
+                                              '& .MuiOutlinedInput-root': {
+                                                '& fieldset': {
+                                                  borderColor: '#444',
+                                                  borderWidth: '1px',
+                                                },
+                                                '&:hover fieldset': {
+                                                  borderColor: '#0078D7',
+                                                  boxShadow: '0 0 8px rgba(0, 120, 215, 0.5)',
+                                                },
+                                                '&.Mui-focused fieldset': {
+                                                  borderColor: '#0078D7',
+                                                  boxShadow: '0 0 8px rgba(0, 120, 215, 0.5)',
+                                                },
+                                              },
+                                              '& .MuiInputBase-input': {
+                                                color: 'white',
+                                                border: 'none',
+                                                boxShadow: 'none',
 
-                                                  fullWidth
-                                                  id="standard-multiline-static"
-                                                  multiline
-                                                  minRows={3}
-                                                  label="Scrivi un commento..." // Aggiungi l'etichetta qui
-                                                  value={commentText}
-                                                  onChange={handleCommentChange}
-                                                  defaultValue="Scrivi un commento..."
-                                                  variant="outlined"
-
-                                                  sx={{
-                                                    backgroundColor: '#3b3b3b', // Colore di sfondo
-                                                    '& .MuiOutlinedInput-root': {
-                                                      '& fieldset': {
-                                                        borderColor: '#444', // Colore del bordo
-                                                        borderWidth: '1px',
-                                                      },
-                                                      '&:hover fieldset': {
-                                                        borderColor: '#0078D7', // Colore del bordo durante l'hover
-                                                        boxShadow: '0 0 8px rgba(0, 120, 215, 0.5)',
-                                                        transition: 'border-color 0.3s ease-in-out'
-                                                      },
-                                                      '&.Mui-focused fieldset': {
-                                                        borderColor: '#0078D7',
-                                                        borderWidth: '1px',
-                                                        boxShadow: '0 0 8px rgba(0, 120, 215, 0.5)'
-                                                      },
-                                                    },
-                                                    '& .MuiInputBase-input': {
-                                                      color: 'white', // Assicura che il testo di input sia bianco
-                                                      border: 'none',
-                                                      boxShadow: 'none'
-                                                    },
-                                                    '& .MuiInputLabel-root': {
-                                                      color: '#6e6e6e', // Colore dell'etichetta
-                                                      backgroundColor: 'transparent',
-                                                      padding: '0 4px',
-                                                      // Assicurati che l'etichetta non sia nascosta
-                                                      zIndex: 1,
-                                                      '&.Mui-focused': {
-                                                        color: '#0078D7' // Colore dell'etichetta quando il campo è in focus
-                                                      },
-                                                    },
-                                                    // Applicare l'hover al TextField per influenzare l'etichetta
-                                                    '&:hover .MuiInputLabel-root': {
-                                                      color: '#0078D7'
-                                                    }
-                                                  }}
-                                                  InputLabelProps={{
-                                                    shrink: true,
-                                                  }}
-                                              />
-                                          </CardContent>
-                                      </Card>
+                                              },
+                                              '& .MuiInputLabel-root': {
+                                                color: '#6e6e6e',
+                                                '&.Mui-focused': {
+                                                  color: '#0078D7'
+                                                },
+                                              }
+                                            }}
+                                            InputLabelProps={{ shrink: true }}
+                                        />
+                                      </CardContent>
+                                    </Card>
 
                                   </Grid>
                                   <Grid container spacing={1} mt={1}>
@@ -342,7 +334,10 @@ const VisualizationPost = () => {
 
                                   </Grid>
                               </Grid>
+
                           </Grid>
+                            )}
+
                       </div>
                   )}
                   {isLoggedIn && (

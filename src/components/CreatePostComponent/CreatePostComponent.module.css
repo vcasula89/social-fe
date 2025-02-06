@@ -49,13 +49,13 @@ textarea.body {
     height: 85px; /* Altezza per la descrizione */
 }
 
-/* Effetto focus */
+/* Effetto focus
 textarea:focus,
 input[type="text"]:focus {
     border-color: #0078d7;
     box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
 }
-
+*/
 /* Messaggi di errore */
 .errorMessage {
     color: #ff1f1f;
