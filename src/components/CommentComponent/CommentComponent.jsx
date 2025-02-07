@@ -100,13 +100,13 @@ const CommentComponent = ({comment, postId, pullOutCommentEvent }) => {
                             {userCompare() &&(
                                 isEditable ? (
                                     <>
-                                        <Grid item xs={2}><Link onClick={updateComment}>Conferma</Link></Grid>
-                                        <Grid item xs={2}><Link onClick={revertEditing}>Annulla</Link></Grid>
+                                        <Grid item xs={2}><Link onClick={updateComment} sx={{cursor:"pointer"}} >Conferma</Link></Grid>
+                                        <Grid item xs={2}><Link onClick={revertEditing} sx={{cursor:"pointer"}}>Annulla</Link></Grid>
                                     </>
                                 ) : (
                                     <>
-                                        <Grid item xs={2}><Link onClick={editCommentInterface} >Modifica</Link></Grid>
-                                        <Grid item xs={2}><Link onClick={deleteComment}>Elimina</Link></Grid>
+                                        <Grid item xs={2}><Link onClick={editCommentInterface} sx={{cursor:"pointer"}} >Modifica</Link></Grid>
+                                        <Grid item xs={2}><Link onClick={deleteComment} sx={{cursor:"pointer"}}>Elimina</Link></Grid>
                                     </>
                                 )
                             )
