@@ -31,7 +31,7 @@
     position: absolute;
     top: 15px; /* Stessa distanza del bottone blu */
     right: 15px; /* Stessa distanza del bottone blu */
-    cursor: pointer;
+
 }
 
 .likes {
@@ -129,7 +129,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    cursor: pointer;
+
 }
 
 .authorName {
