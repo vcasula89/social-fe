@@ -5,6 +5,8 @@
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #00000018;
+    backdrop-filter: blur(10px); /* Applica la sfocatura allo sfondo */
+    -webkit-backdrop-filter: blur(10px); /* Prefisso per compatibilità con Safari */
     transition: background-color 0.4s ease;
     position: relative; /* Aggiunto per consentire il posizionamento assoluto */
     max-width: 800px;
