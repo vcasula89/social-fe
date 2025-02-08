@@ -54,7 +54,8 @@ const RecoveryPasswordPage = () => {
                 </div>
             )}
             {res === null && (
-                <div className="card">
+                <div className="card" style={{backgroundColor: "#00000018", backdropFilter: "blur(10px)",
+                    WebkitBackdropFilter: "blur(10px)"}}>
                     <img src={Logo} className="logo" alt="logo"/>
                     <Grid container direction="column" spacing={1}>
                     <form onSubmit={submitHandler} className={styles.recoveryPasswordForm}>
@@ -64,7 +65,8 @@ const RecoveryPasswordPage = () => {
                                name="email"
                                value={emailValue}
                                onChange={handleEmailChange}
-                               error={formInvalid.email && 'Digita una mail valida'}/>
+                               error={formInvalid.email && 'Digita una mail valida'}
+                               className="no-outline"/>
                         <button className={styles.loginButton}>Richiedi reset</button>
                     </form>
                     </Grid>

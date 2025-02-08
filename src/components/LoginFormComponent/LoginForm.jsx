@@ -55,7 +55,8 @@ const LoginForm = () => {
     }
 
 
-    return <div style={{backgroundColor: "#00000018"}} className="card">
+    return <div style={{backgroundColor: "#00000018", backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)"}} className="card">
         <img src={Logo} className="logo" alt="logo"/>
         <h2 style={{textAlign:"center", color: "white"}}>Accedi</h2>
         <form onSubmit={submitHandler} className={styles.loginForm}>
@@ -65,7 +66,8 @@ const LoginForm = () => {
                    name="email"
                    value={emailValue}
                    onChange={handleEmailChange}
-                   error={formInvalid.email && 'Digita una mail valida'}/>
+                   error={formInvalid.email && 'Digita una mail valida'}
+                   className="no-outline"/>
 
             <Input label="Password"
                    id="password"
@@ -73,14 +75,15 @@ const LoginForm = () => {
                    name="password"
                    value={passwordValue}
                    onChange={handlePasswordChange}
-                   error={formInvalid.password && 'La password deve contenere almeno 8 caratteri'}/>
+                   error={formInvalid.password && 'La password deve contenere almeno 8 caratteri'}
+                   className="no-outline"/>
 
             <Grid container direction="column" spacing={1}>
                 <Grid item>
-                    <Link style={{color: "white"}} to={'/registration'}>Registrati</Link>
+                    <Link className={styles.hoverUnderline} to={'/registration'}>Registrati</Link>
                 </Grid>
                 <Grid item>
-                    <Link  style={{color: "white"}} to={'/recovery-password'}>Ho dimenticato la password</Link>
+                    <Link className={styles.hoverUnderline} to={'/recovery-password'}>Ho dimenticato la password</Link>
                 </Grid>
                 <Grid item>
                     <button className={styles.loginButton}>Accedi</button>

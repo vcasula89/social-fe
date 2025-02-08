@@ -12,6 +12,7 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    overflow: hidden;
 }
 
 /* Gruppi di form */
@@ -30,7 +31,7 @@
 /* Stile degli input e textarea */
 textarea {
     width: 100%;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     border: 1px solid #444;
     border-radius: 4px;
     background-color: #3b3b3b;

@@ -67,7 +67,8 @@ const RegistrationForm = () => {
         }).catch(err => console.log(err));
     }
 
-    return <div style={{backgroundColor: "#00000018"}} className="card">
+    return <div style={{backgroundColor: "#00000018", backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)"}} className="card">
         <img src={Logo} className="logo" alt="logo"/>
 
         <h2 style={{textAlign:"center", color: "white"}}>Registrati</h2>
@@ -78,28 +79,32 @@ const RegistrationForm = () => {
                        name="name"
                        value={nameValue}
                        onChange={handleNameChange}
-                       error={formInvalid.name && 'Inserisci il tuo nome'}/>
+                       error={formInvalid.name && 'Inserisci il tuo nome'}
+                       className="no-outline"/>
                 <Input label="Email"
                        type="text"
                        id="email"
                        name="email"
                        value={emailValue}
                        onChange={handleEmailChange}
-                       error={formInvalid.email && 'Digita una mail valida'}/>
+                       error={formInvalid.email && 'Digita una mail valida'}
+                       className="no-outline"/>
                 <Input label="Password"
                        type="password"
                        id="password"
                        name="password"
                        value={passwordValue}
                        onChange={handlePasswordChange}
-                       error={formInvalid.password && 'La password deve contenere almeno 8 caratteri'}/>
+                       error={formInvalid.password && 'La password deve contenere almeno 8 caratteri'}
+                       className="no-outline"/>
                 <Input label="Conferma password"
                        type="password"
                        id="confirm-password"
                        name="confirm-password"
                        value={confirmPasswordValue}
                        onChange={handleConfirmPasswordChange}
-                       error={formInvalid.passwordDoNotMatch && 'Le password devono corrispondere'}/>
+                       error={formInvalid.passwordDoNotMatch && 'Le password devono corrispondere'}
+                       className="no-outline"/>
                 <button className={styles.loginButton}>Registrati</button>
             </form>
             <div className={styles.backToLogin}>

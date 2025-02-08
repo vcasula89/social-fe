@@ -8,6 +8,7 @@ import {FaArrowRightFromBracket} from "react-icons/fa6";
 import useLogout from "../../hooks/useLogout.jsx";
 import Logo from "../../assets/logosocial.png";
 
+
 const Header = () => {
     const {theme} = useContext(ThemeContext);
     const user = useSelector(UserSelector);
