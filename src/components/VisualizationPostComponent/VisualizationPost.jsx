@@ -81,7 +81,7 @@ const VisualizationPost = () => {
               setPage((prevPage) => prevPage + 1);
             }
           },
-          { root: document.getElementById("postListContainer"), rootMargin: "100px", threshold: 1.0 }
+          { root: document.getElementById("postListContainer"), rootMargin: "100px", threshold: 0.5 }
       )
   );
 
@@ -211,7 +211,7 @@ const VisualizationPost = () => {
   return (
       <Grid container spacing={2}>
         <Grid xs={6}>
-      <div id="postListContainer" style={{ overflowY: 'auto'}}>
+      <div id="postListContainer" style={{ overflowY: 'auto', paddingBottom: '4rem' }}>
         {posts.map((post, postIndex) => (
             <div key={post._id || postIndex}  className={styles.post}
                  ref={postIndex === posts.length - 1 ? lastPostRef : null}>
