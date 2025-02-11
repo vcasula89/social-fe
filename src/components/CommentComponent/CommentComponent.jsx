@@ -73,8 +73,10 @@ const CommentComponent = ({comment, postId, pullOutCommentEvent }) => {
                         <Grid size={12}>{comment.user.displayName}</Grid>
                         <Grid size={12}>
                             <Card>
-                                <CardContent sx={{
-                                    padding: 0.5,
+                                <CardContent
+                                    className={isEditable ? styles.cardComment:''}
+                                    sx={{
+                                    padding: !isEditable ? 0.5:0,
                                     outline: 'none',
                                     backgroundColor: '#3b3b3b',
                                     border: '1px solid #444',
@@ -88,6 +90,35 @@ const CommentComponent = ({comment, postId, pullOutCommentEvent }) => {
                                             minRows={3}
                                             onChange={handleCommentChange}
                                             value={commentText}
+                                            sx={{
+                                                backgroundColor: '#3b3b3b',
+                                                '& .MuiOutlinedInput-root': {
+                                                    '& fieldset': {
+                                                        borderColor: '#444',
+                                                        borderWidth: '1px',
+                                                    },
+                                                    '&:hover fieldset': {
+                                                        borderColor: '#0078D7',
+                                                        boxShadow: '0 0 8px rgba(0, 120, 215, 0.5)',
+                                                    },
+                                                    '&.Mui-focused fieldset': {
+                                                        borderColor: '#0078D7',
+                                                        boxShadow: '0 0 8px rgba(0, 120, 215, 0.5)',
+                                                    },
+                                                },
+                                                '& .MuiInputBase-input': {
+                                                    color: 'white',
+                                                    border: 'none',
+                                                    boxShadow: 'none',
+
+                                                },
+                                                '& .MuiInputLabel-root': {
+                                                    color: '#6e6e6e',
+                                                    '&.Mui-focused': {
+                                                        color: '#0078D7'
+                                                    },
+                                                }
+                                            }}
                                         />
                                     }
                                 </CardContent>
