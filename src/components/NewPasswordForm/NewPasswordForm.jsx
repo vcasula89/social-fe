@@ -61,6 +61,9 @@ const NewPasswordForm = () => {
         try {
             const response = await newPassword(bodyForm);
             setRes(response);
+            setTimeout(() =>{
+                window.location.href="/login";
+            }, 1000);
         } catch (error) {
             console.error("Errore durante il recupero della password:", error);
             setRes(error);

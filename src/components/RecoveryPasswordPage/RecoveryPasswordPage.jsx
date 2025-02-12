@@ -41,6 +41,9 @@ const RecoveryPasswordPage = () => {
             try {
                 const response = await recoveryPassword(emailValue);
                 setRes(response);
+                setTimeout(() =>{
+                    window.location.href="/";
+                }, 1000);
             } catch (error) {
                 console.error("Errore durante il recupero della password:", error);
                 setRes(error);
